@@ -87,7 +87,7 @@ export default function AFLQuiz({ isPresentation }) {
     <div className={`flex flex-col h-full gap-6 ${isPresentation ? 'px-12' : ''}`}>
       {/* Progress */}
       <div className="flex items-center justify-between">
-        <h3 className={`font-bold text-cyan-400 uppercase tracking-widest ${isPresentation ? 'text-2xl' : 'text-lg'}`}>
+        <h3 className={`font-bold text-red-400 uppercase tracking-widest ${isPresentation ? 'text-2xl' : 'text-lg'}`}>
           Check Your Understanding
         </h3>
         <span className={`font-mono text-slate-400 ${isPresentation ? 'text-xl' : 'text-sm'}`}>
@@ -98,7 +98,7 @@ export default function AFLQuiz({ isPresentation }) {
       {/* Progress bar */}
       <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
         <div
-          className="h-full bg-cyan-500 transition-all duration-300"
+          className="h-full bg-red-500 transition-all duration-300"
           style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
         />
       </div>
@@ -114,7 +114,7 @@ export default function AFLQuiz({ isPresentation }) {
           <div className="space-y-6">
             {currentQ.items.map((item, itemIdx) => (
               <div key={itemIdx} className="bg-slate-800/50 p-6 rounded-lg border border-slate-700">
-                <p className={`font-bold text-cyan-300 mb-3 ${isPresentation ? 'text-2xl' : 'text-base'}`}>
+                <p className={`font-bold text-red-300 mb-3 ${isPresentation ? 'text-2xl' : 'text-base'}`}>
                   {item.label}
                 </p>
                 <div className="space-y-2">
@@ -129,7 +129,7 @@ export default function AFLQuiz({ isPresentation }) {
                       }}
                       className={`w-full text-left p-3 rounded-lg transition-all text-sm border ${
                         userAnswer?.[itemIdx] === optIdx
-                          ? 'bg-cyan-700 border-cyan-600 text-white'
+                          ? 'bg-red-700 border-red-600 text-white'
                           : 'bg-slate-700 border-transparent hover:bg-slate-600 text-slate-300 hover:text-white'
                       }`}
                     >
@@ -155,7 +155,7 @@ export default function AFLQuiz({ isPresentation }) {
                 className={`w-full text-left p-4 rounded-lg transition-all border font-medium ${
                   userAnswer === option
                     ? isAnswered ? (option.correct ? 'bg-green-900/30 border-green-500 text-green-300' : 'bg-red-900/30 border-red-500 text-red-300')
-                      : 'bg-cyan-700 border-cyan-600 text-white'
+                      : 'bg-red-700 border-red-600 text-white'
                     : 'bg-slate-800 border-slate-700 hover:bg-slate-700 text-slate-300 hover:text-white'
                 }`}
               >
@@ -200,7 +200,7 @@ export default function AFLQuiz({ isPresentation }) {
           className={`px-6 py-3 font-bold rounded-lg transition-all border ${
             currentQuestion === 0
               ? 'border-transparent text-slate-600 cursor-not-allowed'
-              : 'border-cyan-700 text-cyan-500 hover:bg-cyan-900/30 hover:text-white'
+              : 'border-red-700 text-red-500 hover:bg-red-900/30 hover:text-white'
           }`}
         >
           ← BACK
@@ -226,7 +226,7 @@ export default function AFLQuiz({ isPresentation }) {
             disabled={!isAnswered}
             className={`px-8 py-3 font-bold rounded-lg transition-all ${
               isAnswered
-                ? 'bg-cyan-600 hover:bg-cyan-500 text-white shadow-lg'
+                ? 'bg-red-600 hover:bg-red-500 text-white shadow-lg'
                 : 'bg-slate-700 text-slate-500 cursor-not-allowed'
             }`}
           >

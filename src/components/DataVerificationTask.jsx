@@ -33,41 +33,41 @@ export default function DataVerificationTask({ isPresentation }) {
   };
 
   return (
-    <div className="h-full flex flex-col items-center justify-center p-8">
+    <div className={`h-full flex flex-col items-center justify-center ${isPresentation ? 'p-16' : 'p-8'}`}>
       <div className={`w-full max-w-4xl bg-indigo-950 border-2 ${isComplete ? 'border-green-500' : 'border-indigo-500'} rounded-xl overflow-hidden shadow-2xl relative`}>
-        <div className="bg-black/40 p-4 border-b border-indigo-500/30 flex justify-between items-center">
+        <div className={`bg-black/40 ${isPresentation ? 'p-8' : 'p-4'} border-b border-indigo-500/30 flex justify-between items-center`}>
           <div className="flex items-center gap-2">
-            <FileText size={20} className="text-fuchsia-400" />
-            <span className="font-mono text-fuchsia-400 font-bold tracking-widest">DATA_VERIFICATION_PROTOCOL</span>
+            <FileText size={isPresentation ? 32 : 20} className="text-fuchsia-400" />
+            <span className={`font-mono text-fuchsia-400 font-bold tracking-widest ${isPresentation ? 'text-lg' : 'text-xs'}`}>DATA_VERIFICATION_PROTOCOL</span>
           </div>
-          <div className="font-mono text-xs text-indigo-300">BATCH {currentQ + 1}/{logs.length}</div>
+          <div className={`font-mono text-indigo-300 ${isPresentation ? 'text-lg' : 'text-xs'}`}>BATCH {currentQ + 1}/{logs.length}</div>
         </div>
 
-        <div className="p-12 text-center relative min-h-[300px] flex flex-col justify-center">
+        <div className={`${isPresentation ? 'p-16 min-h-[500px]' : 'p-12 min-h-[300px]'} text-center relative flex flex-col justify-center`}>
           <div className="absolute inset-0 bg-grid-dna opacity-10 pointer-events-none"></div>
           
           {!isComplete ? (
             <>
-              <div className="mb-8 font-mono text-lg md:text-2xl text-white relative z-10">
+              <div className={`mb-8 font-mono text-white relative z-10 ${isPresentation ? 'text-3xl' : 'text-lg md:text-2xl'}`}>
                 "{logs[currentQ].text}"
               </div>
 
               {!feedback ? (
-                <div className="flex gap-8 justify-center relative z-10">
-                  <button onClick={() => handleAnswer('VALID')} className="px-8 py-4 bg-green-900/30 border-2 border-green-600 text-green-400 font-bold rounded-lg hover:bg-green-900/50 hover:scale-105 transition-all w-48">
+                <div className={`flex gap-8 justify-center relative z-10 ${isPresentation ? 'gap-12' : ''}`}>
+                  <button onClick={() => handleAnswer('VALID')} className={`bg-green-900/30 border-2 border-green-600 text-green-400 font-bold rounded-lg hover:bg-green-900/50 hover:scale-105 transition-all ${isPresentation ? 'px-16 py-8 text-2xl w-64' : 'px-8 py-4 w-48'}`}>
                     VALID
                   </button>
-                  <button onClick={() => handleAnswer('CORRUPT')} className="px-8 py-4 bg-red-900/30 border-2 border-red-600 text-red-400 font-bold rounded-lg hover:bg-red-900/50 hover:scale-105 transition-all w-48">
+                  <button onClick={() => handleAnswer('CORRUPT')} className={`bg-red-900/30 border-2 border-red-600 text-red-400 font-bold rounded-lg hover:bg-red-900/50 hover:scale-105 transition-all ${isPresentation ? 'px-16 py-8 text-2xl w-64' : 'px-8 py-4 w-48'}`}>
                     CORRUPT
                   </button>
                 </div>
               ) : (
                 <div className="animate-fadeIn relative z-10">
-                  <div className={`text-2xl font-bold mb-4 ${feedback.correct ? 'text-green-400' : 'text-red-400'}`}>
+                  <div className={`font-bold mb-4 ${feedback.correct ? 'text-green-400' : 'text-red-400'} ${isPresentation ? 'text-3xl' : 'text-2xl'}`}>
                     {feedback.correct ? "VERIFICATION SUCCESSFUL" : "VERIFICATION FAILED"}
                   </div>
-                  <p className="text-indigo-200 mb-8 text-lg">{feedback.text}</p>
-                  <button onClick={nextQ} className="px-8 py-3 bg-indigo-600 text-white font-bold rounded hover:bg-indigo-500 transition-all">
+                  <p className={`text-indigo-200 mb-8 ${isPresentation ? 'text-2xl' : 'text-lg'}`}>{feedback.text}</p>
+                  <button onClick={nextQ} className={`bg-indigo-600 text-white font-bold rounded hover:bg-indigo-500 transition-all ${isPresentation ? 'px-12 py-4 text-xl' : 'px-8 py-3'}`}>
                     NEXT LOG
                   </button>
                 </div>
@@ -75,9 +75,9 @@ export default function DataVerificationTask({ isPresentation }) {
             </>
           ) : (
             <div className="animate-fadeIn">
-              <CheckCircle size={80} className="text-green-500 mx-auto mb-6" />
-              <h3 className="text-3xl text-white font-bold mb-2">QUALITY CONTROL COMPLETE</h3>
-              <p className="text-indigo-300 text-xl">Accuracy: {score}/{logs.length}</p>
+              <CheckCircle size={isPresentation ? 120 : 80} className="text-green-500 mx-auto mb-6" />
+              <h3 className={`text-white font-bold mb-2 ${isPresentation ? 'text-4xl' : 'text-3xl'}`}>QUALITY CONTROL COMPLETE</h3>
+              <p className={`text-indigo-300 ${isPresentation ? 'text-2xl' : 'text-xl'}`}>Accuracy: {score}/{logs.length}</p>
             </div>
           )}
         </div>

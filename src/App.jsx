@@ -4,7 +4,8 @@ import {
   Search, ChevronRight, ChevronLeft, Projector, Maximize2, Minimize2,
   Shield, Target, AlertTriangle, Microscope, Dna, FileText, FlaskConical,
   TrendingUp, Power, Syringe, Ban, Check, RefreshCw, GitMerge, FileCode,
-  Eye, Fish, Swords, BookOpen, Leaf, Flag, Skull, Scroll
+  Eye, Fish, Swords, BookOpen, Leaf, Flag, Skull, Scroll, MapPin, Baby,
+  Users, HelpCircle, Radio, Scan, Globe, Gauge
 } from 'lucide-react'
 
 // Import components
@@ -27,14 +28,26 @@ import RitualDisplay from './components/RitualDisplay'
 import InstinctAnatomy from './components/InstinctAnatomy'
 import SticklebackLabSim from './components/SticklebackLabSim'
 import Lesson3EssayPlan from './components/Lesson3EssayPlan'
+import Lesson4DoNowQuiz from './components/Lesson4DoNowQuiz'
+import PaternityRisk from './components/PaternityRisk'
+import MateRetentionSystem from './components/MateRetentionSystem'
+import EvolutionaryImperativeSim from './components/EvolutionaryImperativeSim'
+import Lesson4EssayPlan from './components/Lesson4EssayPlan'
+import Lesson5DoNowQuiz from './components/Lesson5DoNowQuiz'
+import PressureTank from './components/PressureTank'
+import WeaponEffect from './components/WeaponEffect'
+import ImpossibleTaskSim from './components/ImpossibleTaskSim'
+import Lesson5EvidenceGrid from './components/Lesson5EvidenceGrid'
+import Lesson5CritiqueGrid from './components/Lesson5CritiqueGrid'
+import Lesson5EssayPlan from './components/Lesson5EssayPlan'
 
 // Data
 const lessons = [
   { id: 1, title: "01: Neural & Hormonal Mechanisms", active: true, complete: false },
   { id: 2, title: "02: Genetic Factors", active: true, complete: false },
   { id: 3, title: "03: Ethological Explanations", active: true, complete: false },
-  { id: 4, title: "04: Evolutionary Explanations", active: false, complete: false },
-  { id: 5, title: "05: Social Psych I (Frustration)", active: false, complete: false },
+  { id: 4, title: "04: Evolutionary Explanations", active: true, complete: false },
+  { id: 5, title: "05: Social Psych I (Frustration)", active: true, complete: false },
   { id: 6, title: "06: Social Psych II (SLT)", active: false, complete: false },
   { id: 7, title: "07: Social Psych III (De-individuation)", active: false, complete: false },
   { id: 8, title: "08: Institutional Aggression", active: false, complete: false },
@@ -65,12 +78,28 @@ const lesson3DoNow = [
   { id: 5, question: "Hormonal: Testosterone is an...", options: ["Androgen", "Enzyme", "Neurotransmitter"], correct: 0 }
 ]
 
+const lesson4DoNow = [
+  { id: 1, question: "Ethology: What triggers a Fixed Action Pattern (FAP)?", options: ["A Sign Stimulus", "A conscious thought", "A hormone"], correct: 0 },
+  { id: 2, question: "Ethology: Tinbergen studied aggression in which animal?", options: ["Sticklebacks", "Wolves", "Chimpanzees"], correct: 0 },
+  { id: 3, question: "Ethology: Lorenz argued aggression is...", options: ["Learned", "Adaptive & Ritualistic", "Pathological"], correct: 1 },
+  { id: 4, question: "Genetics: The MAOA gene regulates...", options: ["Serotonin", "Testosterone", "Adrenaline"], correct: 0 },
+  { id: 5, question: "Neural: The Amygdala is responsible for...", options: ["Memory", "Threat Detection", "Visual Processing"], correct: 1 }
+]
+
+const lesson5DoNow = [
+  { id: 1, question: "Social Psych: Dollard et al. (1939) said frustration always leads to...", options: ["Anxiety", "Aggression", "Depression"], correct: 1 },
+  { id: 2, question: "Social Psych: The 'Weapon Effect' was studied by...", options: ["Berkowitz & LePage", "Bushman", "Geen"], correct: 0 },
+  { id: 3, question: "Social Psych: Berkowitz argued the weapon effect suggests aggression is...", options: ["Learned", "Instinctual", "Primed by environmental cues"], correct: 2 },
+  { id: 4, question: "Social Psych: Which finding contradicts the catharsis hypothesis?", options: ["Venting increases aggression (Bushman 2002)", "Shocks were stronger with guns (Berkowitz)", "Jigsaw puzzle study (Geen)"], correct: 0 },
+  { id: 5, question: "Neural: Which hormone interacts with frustration in the Dual-Hormone Hypothesis?", options: ["Serotonin", "Cortisol", "Adrenaline"], correct: 1 }
+]
+
 export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [currentLesson, setCurrentLesson] = useState(1)
   const [isSidebarOpen, setSidebarOpen] = useState(true)
   const [isPresentation, setIsPresentation] = useState(false)
-  const slideCount = currentLesson === 1 ? 10 : currentLesson === 2 ? 9 : 8
+  const slideCount = currentLesson === 1 ? 10 : currentLesson === 2 ? 9 : currentLesson === 3 ? 9 : currentLesson === 4 ? 8 : currentLesson === 5 ? 8 : 0
 
   const nextSlide = useCallback(() => {
     if (currentSlide < slideCount - 1) setCurrentSlide(prev => prev + 1)
@@ -102,20 +131,20 @@ export default function App() {
           <Slide isPresentation={isPresentation}>
             <div className="flex flex-col items-center justify-center h-full text-center">
               <div className="relative mb-8">
-                <div className="absolute inset-0 bg-cyan-500 blur-[100px] opacity-20 rounded-full animate-pulse"></div>
+                <div className="absolute inset-0 bg-red-500 blur-[100px] opacity-20 rounded-full animate-pulse"></div>
                 <div className="relative z-10 flex gap-4">
-                  <Brain size={isPresentation ? 100 : 80} className="text-cyan-400 animate-heartbeat" />
+                  <Brain size={isPresentation ? 100 : 80} className="text-red-400 animate-heartbeat" />
                   <Zap size={isPresentation ? 100 : 80} className="text-white" />
                 </div>
               </div>
               <h1 className={`font-bold text-white mb-4 tracking-widest uppercase ${isPresentation ? 'text-8xl' : 'text-6xl'}`}>
-                NEURAL & HORMONAL <span className="text-cyan-500">MECHANISMS</span>
+                NEURAL & HORMONAL <span className="text-red-500">MECHANISMS</span>
               </h1>
-              <div className="h-1 w-64 bg-cyan-900 my-6"></div>
-              <h2 className={`text-cyan-600 text-xs tracking-[0.5em] uppercase mb-12 font-bold`}>
+              <div className="h-1 w-64 bg-red-900 my-6"></div>
+              <h2 className={`text-red-600 text-xs tracking-[0.5em] uppercase mb-12 font-bold`}>
                 Aggression Lesson 01
               </h2>
-              <button onClick={nextSlide} className={`bg-slate-900 border border-cyan-500 text-cyan-400 font-bold px-12 py-4 rounded-xl hover:bg-slate-800 transition-all ${isPresentation ? 'text-2xl' : 'text-lg'} uppercase shadow-lg`}>
+              <button onClick={nextSlide} className={`bg-slate-900 border border-red-500 text-red-400 font-bold px-12 py-4 rounded-xl hover:bg-slate-800 transition-all ${isPresentation ? 'text-2xl' : 'text-lg'} uppercase shadow-lg`}>
                 Initialize Scan
               </button>
             </div>
@@ -175,35 +204,35 @@ export default function App() {
           <Slide isPresentation={isPresentation}>
             <PhaseHeader phase="Phase 4: Evidence" title="Clinical Data" icon={Search} time="10 MINS" isPresentation={isPresentation} />
             <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 h-full ${isPresentation ? 'px-12' : 'px-0'}`}>
-              <div className="bg-slate-900 border border-slate-800 p-8 relative rounded-xl hover:border-cyan-500 transition-all group">
+              <div className="bg-slate-900 border border-slate-800 p-8 relative rounded-xl hover:border-red-500 transition-all group">
                 <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity"><Brain size={80} /></div>
-                <h3 className="text-cyan-400 font-mono font-bold uppercase text-2xl mb-4 border-b border-slate-800 pb-2">
+                <h3 className="text-red-400 font-mono font-bold uppercase text-2xl mb-4 border-b border-slate-800 pb-2">
                   Gospic et al. (2011)
                 </h3>
                 <div className="space-y-4 text-slate-300">
-                  <div className="bg-cyan-950/30 p-4 border-l-2 border-cyan-500 rounded">
-                    <strong className="text-cyan-200 block text-xs uppercase tracking-wider mb-1">Study</strong>
+                  <div className="bg-red-950/30 p-4 border-l-2 border-red-500 rounded">
+                    <strong className="text-red-200 block text-xs uppercase tracking-wider mb-1">Study</strong>
                     Ultimatum Game with fMRI. Participants faced unfair money offers.
                   </div>
-                  <div className="bg-cyan-950/30 p-4 border-l-2 border-cyan-500 rounded">
-                    <strong className="text-cyan-200 block text-xs uppercase tracking-wider mb-1">Findings</strong>
+                  <div className="bg-red-950/30 p-4 border-l-2 border-red-500 rounded">
+                    <strong className="text-red-200 block text-xs uppercase tracking-wider mb-1">Findings</strong>
                     Rejection (Aggression) = Fast/High Amygdala response. Benzodiazepines (calming drug) reduced both Amygdala activity and aggression.
                   </div>
                 </div>
               </div>
 
-              <div className="bg-slate-900 border border-slate-800 p-8 relative rounded-xl hover:border-blue-500 transition-all group">
+              <div className="bg-slate-900 border border-slate-800 p-8 relative rounded-xl hover:border-orange-500 transition-all group">
                 <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity"><Dna size={80} /></div>
-                <h3 className="text-blue-400 font-bold uppercase text-2xl mb-4 border-b border-slate-800 pb-2">
+                <h3 className="text-orange-400 font-bold uppercase text-2xl mb-4 border-b border-slate-800 pb-2">
                   Virkkunen et al. (1994)
                 </h3>
                 <div className="space-y-4 text-slate-300">
-                  <div className="bg-blue-950/30 p-4 border-l-2 border-blue-500 rounded">
-                    <strong className="text-blue-200 block text-xs uppercase tracking-wider mb-1">Study</strong>
+                  <div className="bg-orange-950/30 p-4 border-l-2 border-orange-500 rounded">
+                    <strong className="text-orange-200 block text-xs uppercase tracking-wider mb-1">Study</strong>
                     Compared serotonin breakdown product (5-HIAA) in CSF of impulsive vs non-impulsive offenders.
                   </div>
-                  <div className="bg-blue-950/30 p-4 border-l-2 border-blue-500 rounded">
-                    <strong className="text-blue-200 block text-xs uppercase tracking-wider mb-1">Findings</strong>
+                  <div className="bg-orange-950/30 p-4 border-l-2 border-orange-500 rounded">
+                    <strong className="text-orange-200 block text-xs uppercase tracking-wider mb-1">Findings</strong>
                     Significantly lower levels of serotonin in impulsive offenders. Supports the deficiency hypothesis.
                   </div>
                 </div>
@@ -216,25 +245,25 @@ export default function App() {
         return (
           <Slide isPresentation={isPresentation}>
             <PhaseHeader phase="Phase 5: Evaluation" title="Critical Analysis" icon={Target} time="10 MINS" isPresentation={isPresentation} />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
-              <div className="bg-orange-900/10 border border-orange-500/30 p-6 relative rounded-xl">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="bg-orange-900/30 p-2 rounded-lg"><FlaskConical className="text-orange-400" size={32} /></div>
-                  <h3 className="text-orange-400 font-bold uppercase text-2xl">Dual-Hormone Hypothesis</h3>
+            <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 h-full ${isPresentation ? 'gap-12' : ''}`}>
+              <div className={`bg-orange-900/10 border border-orange-500/30 relative rounded-xl ${isPresentation ? 'p-12' : 'p-6'}`}>
+                <div className={`flex items-center gap-3 mb-4 ${isPresentation ? 'mb-6' : ''}`}>
+                  <div className="bg-orange-900/30 p-2 rounded-lg"><FlaskConical className="text-orange-400" size={isPresentation ? 40 : 32} /></div>
+                  <h3 className={`text-orange-400 font-bold uppercase ${isPresentation ? 'text-4xl' : 'text-2xl'}`}>Dual-Hormone Hypothesis</h3>
                 </div>
-                <p className="text-slate-300 text-lg leading-relaxed">
+                <p className={`text-slate-300 leading-relaxed ${isPresentation ? 'text-2xl' : 'text-lg'}`}>
                   <strong>Carre & Mehta (2011):</strong> Testosterone provides a partial explanation.
                   <br /><br />
                   They argue testosterone only leads to aggression when <strong>Cortisol</strong> (stress) is low. High cortisol blocks testosterone's influence on the amygdala. This interaction explains mixed results in previous studies.
                 </p>
               </div>
 
-              <div className="bg-yellow-900/10 border border-yellow-500/30 p-6 relative rounded-xl">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="bg-yellow-900/30 p-2 rounded-lg"><TrendingUp className="text-yellow-400" size={32} /></div>
-                  <h3 className="text-yellow-400 font-bold uppercase text-2xl">Correlational Issues</h3>
+              <div className={`bg-yellow-900/10 border border-yellow-500/30 relative rounded-xl ${isPresentation ? 'p-12' : 'p-6'}`}>
+                <div className={`flex items-center gap-3 mb-4 ${isPresentation ? 'mb-6' : ''}`}>
+                  <div className="bg-yellow-900/30 p-2 rounded-lg"><TrendingUp className="text-yellow-400" size={isPresentation ? 40 : 32} /></div>
+                  <h3 className={`text-yellow-400 font-bold uppercase ${isPresentation ? 'text-4xl' : 'text-2xl'}`}>Correlational Issues</h3>
                 </div>
-                <p className="text-slate-300 text-lg leading-relaxed">
+                <p className={`text-slate-300 leading-relaxed ${isPresentation ? 'text-2xl' : 'text-lg'}`}>
                   Much research is correlational. Does low serotonin cause aggression, or does aggressive behavior deplete serotonin?
                   <br /><br />
                   Furthermore, defining "aggression" differs between studies (e.g. violent crime vs hitting a button in a lab), making comparison difficult.
@@ -249,12 +278,12 @@ export default function App() {
           <Slide isPresentation={isPresentation}>
             <PhaseHeader phase="Phase 6: Assessment" title="Synthesis" icon={FileText} time="15 MINS" isPresentation={isPresentation} />
             <div className={`grid grid-cols-1 md:grid-cols-2 h-full ${isPresentation ? 'gap-16' : 'gap-8'}`}>
-              <div className="bg-slate-950 border border-cyan-800 shadow-2xl flex flex-col relative overflow-hidden p-8 justify-center">
-                <div className="flex items-center gap-3 mb-6 border-b border-cyan-900 pb-4">
-                  <span className="bg-cyan-700 text-white px-3 py-1 text-sm font-bold font-mono">16 MARKS</span>
+              <div className="bg-slate-950 border border-red-800 shadow-2xl flex flex-col relative overflow-hidden p-8 justify-center">
+                <div className="flex items-center gap-3 mb-6 border-b border-red-900 pb-4">
+                  <span className="bg-red-700 text-white px-3 py-1 text-sm font-bold font-mono">16 MARKS</span>
                   <h3 className="font-bold text-white text-xl font-mono">ASSESSMENT</h3>
                 </div>
-                <p className={`text-cyan-400 font-mono italic leading-snug border-l-4 border-cyan-600 pl-6 ${isPresentation ? 'text-4xl' : 'text-2xl'}`}>
+                <p className={`text-red-400 font-mono italic leading-snug border-l-4 border-red-600 pl-6 ${isPresentation ? 'text-4xl' : 'text-2xl'}`}>
                   "Discuss neural and hormonal mechanisms in aggression."
                 </p>
               </div>
@@ -348,14 +377,14 @@ export default function App() {
         return (
           <Slide isPresentation={isPresentation}>
             <PhaseHeader phase="Phase 5: Evaluation" title="Critique & Issues" icon={Target} time="10 MINS" isPresentation={isPresentation} />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
+            <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 h-full ${isPresentation ? 'gap-12' : ''}`}>
               {/* Measurement */}
-              <div className="bg-indigo-900/30 border border-indigo-800 p-6 relative rounded-xl">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="bg-indigo-900/50 p-2 rounded-lg"><FlaskConical className="text-indigo-400" size={32} /></div>
-                  <h3 className="text-indigo-400 font-bold uppercase text-2xl">Measurement Issues</h3>
+              <div className={`bg-indigo-900/30 border border-indigo-800 relative rounded-xl ${isPresentation ? 'p-12' : 'p-6'}`}>
+                <div className={`flex items-center gap-3 mb-4 ${isPresentation ? 'mb-6' : ''}`}>
+                  <div className="bg-indigo-900/50 p-2 rounded-lg"><FlaskConical className="text-indigo-400" size={isPresentation ? 40 : 32} /></div>
+                  <h3 className={`text-indigo-400 font-bold uppercase ${isPresentation ? 'text-4xl' : 'text-2xl'}`}>Measurement Issues</h3>
                 </div>
-                <p className="text-indigo-200 text-lg leading-relaxed">
+                <p className={`text-indigo-200 leading-relaxed ${isPresentation ? 'text-2xl' : 'text-lg'}`}>
                   Genetic influence varies depending on <em>how</em> aggression is measured. 
                   <br/><br/>
                   <strong>Rhee & Waldman (2002)</strong> found greater genetic influence for direct physical aggression compared to psychological/verbal aggression. Self-reports often differ from observational data.
@@ -363,12 +392,12 @@ export default function App() {
               </div>
 
               {/* Polygenic */}
-              <div className="bg-fuchsia-900/10 border border-fuchsia-900/50 p-6 relative rounded-xl">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="bg-fuchsia-900/30 p-2 rounded-lg"><GitMerge className="text-fuchsia-400" size={32} /></div>
-                  <h3 className="text-fuchsia-400 font-bold uppercase text-2xl">Polygenic Explanation</h3>
+              <div className={`bg-fuchsia-900/10 border border-fuchsia-900/50 relative rounded-xl ${isPresentation ? 'p-12' : 'p-6'}`}>
+                <div className={`flex items-center gap-3 mb-4 ${isPresentation ? 'mb-6' : ''}`}>
+                  <div className="bg-fuchsia-900/30 p-2 rounded-lg"><GitMerge className="text-fuchsia-400" size={isPresentation ? 40 : 32} /></div>
+                  <h3 className={`text-fuchsia-400 font-bold uppercase ${isPresentation ? 'text-4xl' : 'text-2xl'}`}>Polygenic Explanation</h3>
                 </div>
-                <p className="text-indigo-200 text-lg leading-relaxed">
+                <p className={`text-indigo-200 leading-relaxed ${isPresentation ? 'text-2xl' : 'text-lg'}`}>
                   Focusing solely on the MAOA gene is reductionist. Aggression is likely <strong>polygenic</strong> (caused by thousands of genes interacting).
                   <br/><br/>
                   The <strong>SRY gene</strong> (on the Y chromosome) is also implicated, potentially explaining why men are generally more aggressive than women.
@@ -452,8 +481,17 @@ export default function App() {
           </Slide>
         )
 
-      // Slide 5: Stickleback Lab
+      // Slide 5: AFL Check
       case 4:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 2: Check" title="Understanding Check" icon={Brain} time="10 MINS" isPresentation={isPresentation} />
+            <AFLQuiz isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      // Slide 6: Stickleback Lab
+      case 5:
         return (
           <Slide isPresentation={isPresentation}>
             <PhaseHeader phase="Phase 3: Simulation" title="The Stickleback Lab" icon={Fish} time="15 MINS" isPresentation={isPresentation} />
@@ -461,8 +499,8 @@ export default function App() {
           </Slide>
         )
 
-      // Slide 6: Evidence
-      case 5:
+      // Slide 7: Evidence
+      case 6:
         return (
           <Slide isPresentation={isPresentation}>
             <PhaseHeader phase="Phase 4: Evidence" title="Field Observations" icon={Search} time="10 MINS" isPresentation={isPresentation} />
@@ -491,29 +529,29 @@ export default function App() {
         )
 
       // Slide 7: Critique
-      case 6:
+      case 7:
         return (
           <Slide isPresentation={isPresentation}>
             <PhaseHeader phase="Phase 5: Evaluation" title="Critique & Debates" icon={AlertTriangle} time="10 MINS" isPresentation={isPresentation} />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
-              <div className="bg-stone-900/50 border border-stone-800 p-6 rounded-xl relative">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="bg-amber-900/30 p-2 rounded-lg"><Flag className="text-amber-500" size={32} /></div>
-                  <h3 className="text-amber-500 font-serif font-bold text-2xl">Culture of Honour</h3>
+            <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 h-full ${isPresentation ? 'gap-12' : ''}`}>
+              <div className={`bg-stone-900/50 border border-stone-800 rounded-xl relative ${isPresentation ? 'p-12' : 'p-6'}`}>
+                <div className={`flex items-center gap-3 mb-4 ${isPresentation ? 'mb-6' : ''}`}>
+                  <div className="bg-amber-900/30 p-2 rounded-lg"><Flag className="text-amber-500" size={isPresentation ? 40 : 32} /></div>
+                  <h3 className={`text-amber-500 font-serif font-bold ${isPresentation ? 'text-4xl' : 'text-2xl'}`}>Culture of Honour</h3>
                 </div>
-                <p className="text-stone-300 text-lg leading-relaxed">
+                <p className={`text-stone-300 leading-relaxed ${isPresentation ? 'text-2xl' : 'text-lg'}`}>
                   <strong>Nisbett (1993):</strong> Found significant differences in reactive aggression between Northern and Southern US white males. 
                   <br/><br/>
                   This demonstrates that <strong>culture overrides instinct</strong>. If aggression were purely ethological (innate), such regional variations would not exist.
                 </p>
               </div>
 
-              <div className="bg-stone-900/50 border border-stone-800 p-6 rounded-xl relative">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="bg-emerald-900/30 p-2 rounded-lg"><Leaf className="text-emerald-500" size={32} /></div>
-                  <h3 className="text-emerald-500 font-serif font-bold text-2xl">Human FAPs?</h3>
+              <div className={`bg-stone-900/50 border border-stone-800 rounded-xl relative ${isPresentation ? 'p-12' : 'p-6'}`}>
+                <div className={`flex items-center gap-3 mb-4 ${isPresentation ? 'mb-6' : ''}`}>
+                  <div className="bg-emerald-900/30 p-2 rounded-lg"><Leaf className="text-emerald-500" size={isPresentation ? 40 : 32} /></div>
+                  <h3 className={`text-emerald-500 font-serif font-bold ${isPresentation ? 'text-4xl' : 'text-2xl'}`}>Human FAPs?</h3>
                 </div>
-                <p className="text-stone-300 text-lg leading-relaxed">
+                <p className={`text-stone-300 leading-relaxed ${isPresentation ? 'text-2xl' : 'text-lg'}`}>
                   <strong>Hunt (1973):</strong> FAPs are not as "fixed" as implied. They are influenced by learning and environment. 
                   <br/><br/>
                   The term <strong>"Modal Action Pattern" (MAP)</strong> is now preferred, acknowledging that while there is an instinctual basis, humans (and many animals) possess flexibility.
@@ -523,8 +561,8 @@ export default function App() {
           </Slide>
         )
 
-      // Slide 8: Essay Plan
-      case 7:
+      // Slide 9: Essay Plan
+      case 8:
         return (
           <Slide isPresentation={isPresentation}>
             <PhaseHeader phase="Phase 6: Assessment" title="Essay Planning" icon={CheckCircle} time="15 MINS" isPresentation={isPresentation} />
@@ -548,13 +586,250 @@ export default function App() {
     }
   }
 
+  const renderLesson4 = () => {
+    switch (currentSlide) {
+      case 0:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <div className="flex flex-col items-center justify-center h-full text-center">
+              <div className="relative mb-8">
+                <div className="absolute inset-0 bg-amber-600 blur-[100px] opacity-20 rounded-full animate-pulse"></div>
+                <div className="relative z-10 flex gap-4">
+                  <Dna size={isPresentation ? 100 : 80} className="text-amber-500 animate-spin-slow" />
+                  <Swords size={isPresentation ? 100 : 80} className="text-stone-400" />
+                </div>
+              </div>
+              <h1 className={`font-serif font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-stone-100 to-amber-600 mb-4 tracking-widest ${isPresentation ? 'text-8xl' : 'text-6xl'}`}>
+                EVOLUTIONARY EXPLANATIONS
+              </h1>
+              <div className="h-1 w-64 bg-stone-700 my-6"></div>
+              <h2 className="text-stone-400 text-xs tracking-[0.5em] font-mono uppercase mb-12">Aggression Lesson 04</h2>
+              <button
+                onClick={nextSlide}
+                className={`bg-stone-900 border border-amber-600 text-amber-500 font-mono font-bold px-12 py-4 hover:bg-amber-900 hover:text-white transition-all ${isPresentation ? 'text-2xl' : 'text-lg'} shadow-[0_0_20px_rgba(217,119,6,0.2)]`}
+              >
+                INITIALIZE
+              </button>
+            </div>
+          </Slide>
+        )
+
+      case 1:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 1: Activation" title="Field Notes: Retrieval" icon={BookOpen} time="05 MINS" isPresentation={isPresentation} />
+            <Lesson4DoNowQuiz questions={lesson4DoNow} isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 2:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 2: Concept" title="The Cuckoldry Risk" icon={Baby} time="15 MINS" isPresentation={isPresentation} />
+            <PaternityRisk isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 3:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 2: Concept" title="Mate Retention" icon={Scan} time="10 MINS" isPresentation={isPresentation} />
+            <MateRetentionSystem isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 4:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 3: Simulation" title="Evolutionary Imperative" icon={Target} time="15 MINS" isPresentation={isPresentation} />
+            <EvolutionaryImperativeSim isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 5:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 4: Evidence" title="Research Support" icon={Search} time="10 MINS" isPresentation={isPresentation} />
+            <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 h-full ${isPresentation ? 'px-12' : 'px-0'}`}>
+              <div className="bg-stone-900 border border-stone-800 p-8 relative hover:border-red-600 transition-all group rounded-xl">
+                <div className="absolute top-4 right-4 opacity-20"><Shield size={48} className="text-red-500" /></div>
+                <h3 className="text-red-500 font-serif font-bold text-2xl mb-4 border-b border-stone-800 pb-2">Shackleford et al. (2005)</h3>
+                <div className="space-y-4 text-stone-300">
+                  <p><strong className="text-white">Sample:</strong> 107 married couples.</p>
+                  <p><strong className="text-white">Method:</strong> Men completed Mate Retention Inventory; women reported violence.</p>
+                  <p><strong className="text-white">Findings:</strong> Positive correlation between retention strategies and IPV.</p>
+                </div>
+              </div>
+              <div className="bg-stone-900 border border-stone-800 p-8 relative hover:border-amber-600 transition-all group rounded-xl">
+                <div className="absolute top-4 right-4 opacity-20"><Swords size={48} className="text-amber-500" /></div>
+                <h3 className="text-amber-500 font-serif font-bold text-2xl mb-4 border-b border-stone-800 pb-2">Volk et al. (2012)</h3>
+                <div className="space-y-4 text-stone-300">
+                  <p><strong className="text-white">Concept:</strong> Bullying can be adaptive.</p>
+                  <p><strong className="text-white">Benefit:</strong> Dominance and resources (males) = status; fidelity protection (females).</p>
+                  <p><strong className="text-white">Application:</strong> Interventions need status alternatives, not only punishment.</p>
+                </div>
+              </div>
+            </div>
+          </Slide>
+        )
+
+      case 6:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 5: Evaluation" title="Critique & Debates" icon={AlertTriangle} time="10 MINS" isPresentation={isPresentation} />
+            <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 h-full ${isPresentation ? 'gap-12' : ''}`}>
+              <div className={`bg-stone-900/50 border border-stone-800 p-6 relative rounded-xl ${isPresentation ? 'p-12' : 'p-6'}`}>
+                <div className={`flex items-center gap-3 mb-4 ${isPresentation ? 'mb-6' : ''}`}>
+                  <div className="bg-pink-900/30 p-2 rounded-lg"><Users className="text-pink-500" size={isPresentation ? 40 : 32} /></div>
+                  <h3 className={`text-pink-500 font-serif font-bold ${isPresentation ? 'text-4xl' : 'text-2xl'}`}>Gender Differences</h3>
+                </div>
+                <p className={`text-stone-300 leading-relaxed ${isPresentation ? 'text-2xl' : 'text-lg'}`}>
+                  <strong>Campbell (1999):</strong> Females are less physically aggressive because the evolutionary cost (offspring survival) is higher. They use verbal/relational aggression to retain partners.
+                </p>
+              </div>
+              <div className={`bg-stone-900/50 border border-stone-800 p-6 relative rounded-xl ${isPresentation ? 'p-12' : 'p-6'}`}>
+                <div className={`flex items-center gap-3 mb-4 ${isPresentation ? 'mb-6' : ''}`}>
+                  <div className="bg-emerald-900/30 p-2 rounded-lg"><Globe className="text-emerald-500" size={isPresentation ? 40 : 32} /></div>
+                  <h3 className={`text-emerald-500 font-serif font-bold ${isPresentation ? 'text-4xl' : 'text-2xl'}`}>Cultural Differences</h3>
+                </div>
+                <p className={`text-stone-300 leading-relaxed ${isPresentation ? 'text-2xl' : 'text-lg'}`}>
+                  <strong>!Kung San vs Yanomamo:</strong> The !Kung San devalue aggression; the Yanomamo reward it with status. If aggression were purely evolutionary (universal), such differences should not exist.
+                </p>
+              </div>
+            </div>
+          </Slide>
+        )
+
+      case 7:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 6: Assessment" title="Essay Planning" icon={CheckCircle} time="15 MINS" isPresentation={isPresentation} />
+            <div className={`grid grid-cols-1 md:grid-cols-2 h-full ${isPresentation ? 'gap-16' : 'gap-8'}`}>
+              <div className="bg-stone-900 border border-stone-800 shadow-2xl flex flex-col relative overflow-hidden p-8 justify-center rounded-xl">
+                <div className="flex items-center gap-3 mb-6 border-b border-stone-800 pb-4">
+                  <span className="bg-amber-700 text-white px-3 py-1 text-sm font-bold font-mono">16 MARKS</span>
+                  <h3 className="font-serif text-stone-200 text-xl">Exam Question</h3>
+                </div>
+                <p className={`text-white font-serif italic leading-snug border-l-4 border-amber-600 pl-6 ${isPresentation ? 'text-4xl' : 'text-2xl'}`}>
+                  "Discuss evolutionary explanations of human aggression."
+                </p>
+              </div>
+              <Lesson4EssayPlan isPresentation={isPresentation} />
+            </div>
+          </Slide>
+        )
+
+      default:
+        return null
+    }
+  }
+
+  const renderLesson5 = () => {
+    switch (currentSlide) {
+      case 0:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <div className="flex flex-col items-center justify-center h-full text-center">
+              <div className="relative mb-8">
+                <div className="absolute inset-0 bg-orange-600 blur-[100px] opacity-20 rounded-full animate-pulse"></div>
+                <div className="relative z-10 flex gap-4">
+                  <Brain size={isPresentation ? 100 : 80} className="text-orange-400 animate-heartbeat" />
+                  <AlertTriangle size={isPresentation ? 100 : 80} className="text-yellow-500" />
+                </div>
+              </div>
+              <h1 className={`font-bold text-white mb-4 tracking-widest uppercase ${isPresentation ? 'text-8xl' : 'text-6xl'}`}>
+                FRUSTRATION-AGGRESSION <span className="text-orange-500">HYPOTHESIS</span>
+              </h1>
+              <div className="h-1 w-64 bg-orange-900 my-6"></div>
+              <h2 className={`text-orange-600 text-xs tracking-[0.5em] uppercase mb-12 font-bold`}>
+                Aggression Lesson 05
+              </h2>
+              <button onClick={nextSlide} className={`bg-slate-900 border border-orange-500 text-orange-400 font-bold px-12 py-4 rounded-xl hover:bg-slate-800 transition-all ${isPresentation ? 'text-2xl' : 'text-lg'} uppercase shadow-lg`}>
+                Initialize Briefing
+              </button>
+            </div>
+          </Slide>
+        )
+
+      case 1:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 1: Activation" title="System Check" icon={Activity} time="05 MINS" isPresentation={isPresentation} />
+            <Lesson5DoNowQuiz questions={lesson5DoNow} isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 2:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 2: Concept" title="Hydraulic Model (Dollard et al. 1939)" icon={Gauge} time="15 MINS" isPresentation={isPresentation} />
+            <PressureTank isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 3:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 2: Concept" title="Weapon Effect (Berkowitz & LePage 1967)" icon={Zap} time="10 MINS" isPresentation={isPresentation} />
+            <WeaponEffect isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 4:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 3: Simulation" title="Impossible Task Study" icon={Target} time="15 MINS" isPresentation={isPresentation} />
+            <ImpossibleTaskSim isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 5:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 4: Evidence" title="Research Grid" icon={Search} time="10 MINS" isPresentation={isPresentation} />
+            <Lesson5EvidenceGrid isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 6:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 5: Evaluation" title="Critique & Reformulation" icon={AlertTriangle} time="10 MINS" isPresentation={isPresentation} />
+            <Lesson5CritiqueGrid isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 7:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 6: Assessment" title="Essay Blueprint" icon={FileText} time="15 MINS" isPresentation={isPresentation} />
+            <div className={`grid grid-cols-1 md:grid-cols-2 h-full ${isPresentation ? 'gap-16' : 'gap-8'}`}>
+              <div className="bg-slate-900 border border-slate-800 shadow-2xl flex flex-col relative overflow-hidden p-8 justify-center rounded-xl">
+                <div className="flex items-center gap-3 mb-6 border-b border-slate-800 pb-4">
+                  <span className="bg-orange-700 text-white px-3 py-1 text-sm font-bold font-mono">16 MARKS</span>
+                  <h3 className="font-bold text-white text-xl font-mono">ASSESSMENT</h3>
+                </div>
+                <p className={`text-orange-400 font-mono italic leading-snug border-l-4 border-orange-600 pl-6 ${isPresentation ? 'text-4xl' : 'text-2xl'}`}>
+                  "Discuss the frustration-aggression hypothesis."
+                </p>
+              </div>
+              <Lesson5EssayPlan isPresentation={isPresentation} />
+            </div>
+          </Slide>
+        )
+
+      default:
+        return null
+    }
+  }
+
   return (
-    <div className="flex h-screen bg-slate-950 text-slate-100 font-sans overflow-hidden selection:bg-cyan-500 selection:text-white">
+    <div className="flex h-screen bg-slate-950 text-slate-100 font-sans overflow-hidden selection:bg-red-500 selection:text-white">
       {/* Sidebar */}
       <div className={`${isSidebarOpen ? 'w-80' : 'w-0'} bg-slate-900 border-r border-slate-800 transition-all duration-300 flex flex-col z-20 shadow-2xl relative overflow-hidden`}>
         <div className="p-6 border-b border-slate-800 flex justify-between items-center">
-          <span className="font-bold text-xl text-cyan-500 tracking-widest font-mono">AGGRESSION_MOD</span>
-          <button onClick={() => setSidebarOpen(false)} className="text-cyan-700 hover:text-cyan-400"><X size={20} /></button>
+          <span className="font-bold text-xl text-red-500 tracking-widest font-mono">AGGRESSION</span>
+          <button onClick={() => setSidebarOpen(false)} className="text-red-700 hover:text-red-400"><X size={20} /></button>
         </div>
         <div className="flex-grow overflow-y-auto py-4">
           {lessons.map((lesson) => (
@@ -567,13 +842,13 @@ export default function App() {
                 }
               }}
               className={`w-full text-left px-6 py-4 border-l-4 transition-all text-sm font-bold font-mono
-                ${currentLesson === lesson.id ? 'border-cyan-500 bg-cyan-900/20 text-white shadow-[inset_10px_0_20px_-10px_rgba(6,182,212,0.2)]' : 'border-transparent text-cyan-800 hover:bg-cyan-900/20 hover:text-cyan-400'}
+                ${currentLesson === lesson.id ? 'border-red-500 bg-red-900/20 text-white shadow-[inset_10px_0_20px_-10px_rgba(239,68,68,0.2)]' : 'border-transparent text-red-800 hover:bg-red-900/20 hover:text-red-400'}
                 ${!lesson.active ? 'opacity-50 cursor-not-allowed' : ''}
               `}
             >
               <div className="flex items-center justify-between">
                 <span className="tracking-tight">{lesson.title}</span>
-                {currentLesson === lesson.id && <div className="w-2 h-2 rounded-full bg-cyan-500 shadow-[0_0_5px_rgba(6,182,212,1)]"></div>}
+                {currentLesson === lesson.id && <div className="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_5px_rgba(239,68,68,1)]"></div>}
               </div>
             </button>
           ))}
@@ -584,16 +859,16 @@ export default function App() {
 
         {/* TOP BAR */}
         <div className="absolute top-4 left-4 z-50 flex gap-2">
-          {!isSidebarOpen && <button onClick={() => setSidebarOpen(true)} className="bg-slate-950 p-2 border border-cyan-700 text-cyan-500 hover:bg-cyan-900/30 hover:text-white shadow-lg"><Menu size={20} /></button>}
+          {!isSidebarOpen && <button onClick={() => setSidebarOpen(true)} className="bg-slate-950 p-2 border border-red-700 text-red-500 hover:bg-red-900/30 hover:text-white shadow-lg"><Menu size={20} /></button>}
         </div>
         <div className="absolute top-4 right-4 z-50 flex gap-2">
-          <button onClick={togglePresentation} className={`p-2 border text-cyan-500 hover:text-white hover:bg-cyan-900/30 transition-all ${isPresentation ? 'bg-cyan-600 text-black border-cyan-500' : 'bg-slate-950 border-cyan-700'}`} title="Presentation Mode"><Projector size={20} /></button>
-          <button onClick={() => setSidebarOpen(!isSidebarOpen)} className="bg-slate-950 p-2 border border-cyan-700 text-cyan-500 hover:text-white hover:bg-cyan-900/30 transition-all" title={isSidebarOpen ? "Maximize Content" : "Show Sidebar"}>{isSidebarOpen ? <Maximize2 size={20} /> : <Minimize2 size={20} />}</button>
+          <button onClick={togglePresentation} className={`p-2 border text-red-500 hover:text-white hover:bg-red-900/30 transition-all ${isPresentation ? 'bg-red-600 text-black border-red-500' : 'bg-slate-950 border-red-700'}`} title="Presentation Mode"><Projector size={20} /></button>
+          <button onClick={() => setSidebarOpen(!isSidebarOpen)} className="bg-slate-950 p-2 border border-red-700 text-red-500 hover:text-white hover:bg-red-900/30 transition-all" title={isSidebarOpen ? "Maximize Content" : "Show Sidebar"}>{isSidebarOpen ? <Maximize2 size={20} /> : <Minimize2 size={20} />}</button>
         </div>
 
         {/* PROGRESS BAR */}
         <div className="h-1 bg-slate-950 w-full border-b border-slate-800">
-          <div className="h-full bg-cyan-500 transition-all duration-500" style={{ width: `${((currentSlide + 1) / slideCount) * 100}%` }} />
+          <div className="h-full bg-red-500 transition-all duration-500" style={{ width: `${((currentSlide + 1) / slideCount) * 100}%` }} />
         </div>
 
         {/* MAIN CONTENT */}
@@ -604,13 +879,15 @@ export default function App() {
           {currentLesson === 1 && renderLesson1()}
           {currentLesson === 2 && renderLesson2()}
           {currentLesson === 3 && renderLesson3()}
+          {currentLesson === 4 && renderLesson4()}
+          {currentLesson === 5 && renderLesson5()}
         </main>
 
         {/* BOTTOM NAV */}
-        <div className="h-20 border-t border-cyan-900 bg-slate-950 flex items-center justify-between px-8 z-10">
-          <button onClick={() => currentSlide > 0 && setCurrentSlide(prev => prev - 1)} disabled={currentSlide === 0} className={`flex items-center gap-2 px-6 py-3 font-bold text-sm border transition-all ${currentSlide === 0 ? 'border-transparent text-cyan-900 cursor-not-allowed' : 'border-cyan-700 text-cyan-500 hover:bg-cyan-900/30 hover:text-white'}`}><ChevronLeft size={16} /> PREV</button>
-          <span className="text-cyan-700 font-mono text-xs tracking-widest">{currentSlide + 1} / {slideCount}</span>
-          <button onClick={() => currentSlide < (slideCount - 1) && setCurrentSlide(prev => prev + 1)} disabled={currentSlide === (slideCount - 1)} className={`flex items-center gap-2 px-6 py-3 font-bold text-sm border transition-all ${currentSlide === (slideCount - 1) ? 'border-transparent text-cyan-900 cursor-not-allowed' : 'bg-cyan-600 text-black border-cyan-600 hover:bg-cyan-500 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)]'}`}>NEXT <ChevronRight size={16} /></button>
+        <div className="h-20 border-t border-red-900 bg-slate-950 flex items-center justify-between px-8 z-10">
+          <button onClick={() => currentSlide > 0 && setCurrentSlide(prev => prev - 1)} disabled={currentSlide === 0} className={`flex items-center gap-2 px-6 py-3 font-bold text-sm border transition-all ${currentSlide === 0 ? 'border-transparent text-red-900 cursor-not-allowed' : 'border-red-700 text-red-500 hover:bg-red-900/30 hover:text-white'}`}><ChevronLeft size={16} /> PREV</button>
+          <span className="text-red-700 font-mono text-xs tracking-widest">{currentSlide + 1} / {slideCount}</span>
+          <button onClick={() => currentSlide < (slideCount - 1) && setCurrentSlide(prev => prev + 1)} disabled={currentSlide === (slideCount - 1)} className={`flex items-center gap-2 px-6 py-3 font-bold text-sm border transition-all ${currentSlide === (slideCount - 1) ? 'border-transparent text-red-900 cursor-not-allowed' : 'bg-red-600 text-black border-red-600 hover:bg-red-500 hover:shadow-[0_0_15px_rgba(239,68,68,0.4)]'}`}>NEXT <ChevronRight size={16} /></button>
         </div>
       </div>
     </div>

@@ -40,43 +40,43 @@ export default function GeneticProfilerSim({ isPresentation }) {
   };
 
   return (
-    <div className="h-full flex flex-col font-mono text-xs md:text-sm bg-slate-950 border-4 border-indigo-800 rounded-xl relative overflow-hidden shadow-2xl">
+    <div className={`h-full flex flex-col font-mono bg-slate-950 border-4 border-indigo-800 rounded-xl relative overflow-hidden shadow-2xl ${isPresentation ? 'text-sm' : 'text-xs md:text-sm'}`}>
       {/* Header */}
-      <div className="flex justify-between items-center p-4 border-b-2 border-indigo-800 bg-slate-900 z-10">
+      <div className={`flex justify-between items-center border-b-2 border-indigo-800 bg-slate-900 z-10 ${isPresentation ? 'p-8' : 'p-4'}`}>
         <div className="flex items-center gap-2">
-          <Scan size={16} className="text-fuchsia-500" />
-          <span className="text-fuchsia-500 font-bold tracking-widest">GENETIC_PROFILER_V4.0</span>
+          <Scan size={isPresentation ? 24 : 16} className="text-fuchsia-500" />
+          <span className={`text-fuchsia-500 font-bold tracking-widest ${isPresentation ? 'text-xl' : ''}`}>GENETIC_PROFILER_V4.0</span>
         </div>
-        <div className="text-indigo-400">ACCURACY: {Math.round((score / Math.max(1, caseIdx + (phase==='results'?1:0))) * 100)}%</div>
+        <div className={`text-indigo-400 ${isPresentation ? 'text-sm' : ''}`}>ACCURACY: {Math.round((score / Math.max(1, caseIdx + (phase==='results'?1:0))) * 100)}%</div>
       </div>
 
-      <div className="flex-grow p-8 relative z-10 flex flex-col items-center justify-center">
+      <div className={`flex-grow relative z-10 flex flex-col items-center justify-center ${isPresentation ? 'p-16' : 'p-8'}`}>
         
         {phase === 'briefing' && (
-          <div className="text-center max-w-2xl animate-fadeIn">
-            <FileCode size={80} className="text-indigo-500 mx-auto mb-6" />
-            <h3 className="text-3xl text-white font-bold mb-4 font-mono uppercase">Mission Briefing</h3>
-            <p className="text-indigo-300 mb-8 text-lg">
+          <div className={`text-center max-w-2xl animate-fadeIn ${isPresentation ? '' : ''}`}>
+            <FileCode size={isPresentation ? 120 : 80} className="text-indigo-500 mx-auto mb-6" />
+            <h3 className={`text-white font-bold font-mono uppercase mb-4 ${isPresentation ? 'text-4xl' : 'text-3xl'}`}>Mission Briefing</h3>
+            <p className={`text-indigo-300 mb-8 ${isPresentation ? 'text-xl' : 'text-lg'}`}>
               You must analyze subject profiles based on the <strong>Interactionist Approach</strong> (Frazzetto et al. 2007).
               <br/><br/>
               Review the <strong>Genotype</strong> and <strong>Environment</strong> history to predict the Aggression Risk Level.
             </p>
-            <button onClick={() => setPhase('game')} className="bg-fuchsia-700 text-white px-8 py-3 rounded-lg font-bold hover:bg-fuchsia-600 transition-all text-xl uppercase shadow-lg">Start Analysis</button>
+            <button onClick={() => setPhase('game')} className={`bg-fuchsia-700 text-white rounded-lg font-bold hover:bg-fuchsia-600 transition-all uppercase shadow-lg ${isPresentation ? 'px-12 py-4 text-xl' : 'px-8 py-3 text-xl'}`}>Start Analysis</button>
           </div>
         )}
 
         {phase === 'game' && (
-          <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-12 animate-fadeIn">
+          <div className={`w-full max-w-4xl ${isPresentation ? 'grid-cols-1 gap-16' : 'grid grid-cols-1 md:grid-cols-2 gap-12'} animate-fadeIn`}>
             
             {/* Subject Profile */}
-            <div className="bg-indigo-900/20 border-2 border-indigo-500/50 p-8 rounded-xl relative">
-              <div className="absolute -top-3 left-4 bg-indigo-500 text-black px-2 py-1 text-xs font-bold uppercase">Subject #{cases[caseIdx].id}</div>
+            <div className={`bg-indigo-900/20 border-2 border-indigo-500/50 rounded-xl relative ${isPresentation ? 'p-12' : 'p-8'}`}>
+              <div className={`absolute -top-3 left-4 bg-indigo-500 text-black px-2 py-1 font-bold uppercase ${isPresentation ? 'text-sm' : 'text-xs'}`}>Subject #{cases[caseIdx].id}</div>
               
-              <div className="space-y-6 mt-4">
+              <div className={`space-y-6 mt-4 ${isPresentation ? 'space-y-8' : ''}`}>
                 <div>
-                  <span className="text-indigo-400 text-xs uppercase block mb-1">Genotype Analysis</span>
-                  <div className="flex items-center gap-3 text-2xl font-bold text-white">
-                    <Dna className="text-fuchsia-500" />
+                  <span className={`text-indigo-400 uppercase block mb-1 ${isPresentation ? 'text-sm' : 'text-xs'}`}>Genotype Analysis</span>
+                  <div className={`flex items-center gap-3 font-bold text-white ${isPresentation ? 'text-3xl' : 'text-2xl'}`}>
+                    <Dna className="text-fuchsia-500" size={isPresentation ? 36 : 24} />
                     {cases[caseIdx].gene}
                   </div>
                 </div>
@@ -84,9 +84,9 @@ export default function GeneticProfilerSim({ isPresentation }) {
                 <div className="w-full h-px bg-indigo-800"></div>
 
                 <div>
-                  <span className="text-indigo-400 text-xs uppercase block mb-1">Environmental History (0-15 yrs)</span>
-                  <div className="flex items-center gap-3 text-2xl font-bold text-white">
-                    <Shield className={cases[caseIdx].env.includes("Trauma") ? "text-red-500" : "text-green-500"} />
+                  <span className={`text-indigo-400 uppercase block mb-1 ${isPresentation ? 'text-sm' : 'text-xs'}`}>Environmental History (0-15 yrs)</span>
+                  <div className={`flex items-center gap-3 font-bold text-white ${isPresentation ? 'text-3xl' : 'text-2xl'}`}>
+                    <Shield className={cases[caseIdx].env.includes("Trauma") ? "text-red-500" : "text-green-500"} size={isPresentation ? 36 : 24} />
                     {cases[caseIdx].env}
                   </div>
                 </div>
@@ -94,24 +94,24 @@ export default function GeneticProfilerSim({ isPresentation }) {
             </div>
 
             {/* Prediction Console */}
-            <div className="flex flex-col justify-center gap-4">
+            <div className={`flex flex-col justify-center gap-4 ${isPresentation ? 'gap-8' : ''}`}>
               {!feedback ? (
                 <>
-                  <h4 className="text-white text-center mb-4 uppercase tracking-widest font-bold">Predict Aggression Risk</h4>
-                  <button onClick={() => handlePredict('LOW')} className="p-6 bg-green-900/30 border-2 border-green-600 hover:bg-green-900/50 text-green-400 rounded-xl font-bold text-xl transition-all">
+                  <h4 className={`text-white text-center mb-4 uppercase tracking-widest font-bold ${isPresentation ? 'text-2xl' : ''}`}>Predict Aggression Risk</h4>
+                  <button onClick={() => handlePredict('LOW')} className={`bg-green-900/30 border-2 border-green-600 hover:bg-green-900/50 text-green-400 rounded-xl font-bold transition-all ${isPresentation ? 'p-8 text-2xl' : 'p-6 text-xl'}`}>
                     LOW RISK
                   </button>
-                  <button onClick={() => handlePredict('HIGH')} className="p-6 bg-red-900/30 border-2 border-red-600 hover:bg-red-900/50 text-red-400 rounded-xl font-bold text-xl transition-all">
+                  <button onClick={() => handlePredict('HIGH')} className={`bg-red-900/30 border-2 border-red-600 hover:bg-red-900/50 text-red-400 rounded-xl font-bold transition-all ${isPresentation ? 'p-8 text-2xl' : 'p-6 text-xl'}`}>
                     HIGH RISK
                   </button>
                 </>
               ) : (
-                <div className={`p-6 rounded-xl border-2 animate-fadeIn text-center ${feedback.type === 'success' ? 'bg-green-900/30 border-green-500' : 'bg-red-900/30 border-red-500'}`}>
-                  <h4 className={`text-2xl font-bold mb-4 uppercase ${feedback.type === 'success' ? 'text-green-400' : 'text-red-400'}`}>
+                <div className={`rounded-xl border-2 animate-fadeIn text-center ${isPresentation ? 'p-12' : 'p-6'} ${feedback.type === 'success' ? 'bg-green-900/30 border-green-500' : 'bg-red-900/30 border-red-500'}`}>
+                  <h4 className={`font-bold mb-4 uppercase ${isPresentation ? 'text-3xl' : 'text-2xl'} ${feedback.type === 'success' ? 'text-green-400' : 'text-red-400'}`}>
                     {feedback.type === 'success' ? 'ANALYSIS CORRECT' : 'PREDICTION FAILED'}
                   </h4>
-                  <p className="text-white mb-6 text-sm leading-relaxed">{feedback.msg}</p>
-                  <button onClick={nextCase} className="bg-white text-indigo-950 px-8 py-3 rounded font-bold hover:bg-indigo-200 transition-all uppercase w-full">Next Subject</button>
+                  <p className={`mb-6 leading-relaxed text-white ${isPresentation ? 'text-xl' : 'text-sm'}`}>{feedback.msg}</p>
+                  <button onClick={nextCase} className={`bg-white text-indigo-950 rounded font-bold hover:bg-indigo-200 transition-all uppercase w-full ${isPresentation ? 'px-12 py-4 text-xl' : 'px-8 py-3'}`}>Next Subject</button>
                 </div>
               )}
             </div>
@@ -120,18 +120,18 @@ export default function GeneticProfilerSim({ isPresentation }) {
 
         {phase === 'results' && (
           <div className="text-center max-w-xl animate-fadeIn">
-            <Siren size={80} className={`mx-auto mb-6 ${score === 3 ? 'text-green-500' : 'text-yellow-500'}`} />
-            <h3 className="text-3xl text-white font-bold mb-6 font-mono uppercase">BATCH PROCESSED</h3>
+            <Siren size={isPresentation ? 120 : 80} className={`mx-auto mb-6 ${score === 3 ? 'text-green-500' : 'text-yellow-500'}`} />
+            <h3 className={`text-white font-bold font-mono uppercase mb-6 ${isPresentation ? 'text-4xl' : 'text-3xl'}`}>BATCH PROCESSED</h3>
             
-            <div className="bg-indigo-900/30 p-6 rounded-xl border border-indigo-700 mb-8">
-              <span className="text-indigo-300 block mb-2 uppercase text-xs">Final Accuracy</span>
-              <span className={`text-6xl font-bold ${score === 3 ? 'text-green-400' : 'text-yellow-400'}`}>{Math.round((score/3)*100)}%</span>
+            <div className={`bg-indigo-900/30 rounded-xl border border-indigo-700 mb-8 ${isPresentation ? 'p-12' : 'p-6'}`}>
+              <span className={`text-indigo-300 block mb-2 uppercase ${isPresentation ? 'text-sm' : 'text-xs'}`}>Final Accuracy</span>
+              <span className={`font-bold ${isPresentation ? 'text-7xl' : 'text-6xl'} ${score === 3 ? 'text-green-400' : 'text-yellow-400'}`}>{Math.round((score/3)*100)}%</span>
             </div>
 
-            <p className="text-indigo-200 mb-8 text-sm">
+            <p className={`mb-8 ${isPresentation ? 'text-xl' : 'text-sm'} text-indigo-200`}>
               Conclusion: The MAOA gene (Nature) interacts with early experience (Nurture). This is the <strong>Diathesis-Stress Model</strong>.
             </p>
-            <button onClick={reset} className="text-indigo-400 underline hover:text-white uppercase">Reset Simulation</button>
+            <button onClick={reset} className={`text-indigo-400 underline hover:text-white uppercase ${isPresentation ? 'text-xl' : ''}`}>Reset Simulation</button>
           </div>
         )}
       </div>

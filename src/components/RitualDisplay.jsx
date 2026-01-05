@@ -5,9 +5,9 @@ export default function RitualDisplay({ isPresentation }) {
   const [stage, setStage] = useState('conflict');
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
+    <div className={`grid ${isPresentation ? 'grid-cols-1 lg:grid-cols-3 gap-12' : 'grid-cols-1 lg:grid-cols-2 gap-8'} h-full`}>
       {/* Visuals */}
-      <div className="bg-stone-900 border border-stone-800 rounded-xl p-8 flex items-center justify-center relative overflow-hidden shadow-inner">
+      <div className={`${isPresentation ? 'lg:col-span-2' : ''} bg-stone-900 border border-stone-800 rounded-xl ${isPresentation ? 'p-12' : 'p-8'} flex items-center justify-center relative overflow-hidden shadow-inner`}>
         
         {/* Wolf A (Victor) */}
         <div className={`absolute transition-all duration-700 flex flex-col items-center
@@ -43,14 +43,14 @@ export default function RitualDisplay({ isPresentation }) {
       </div>
 
       {/* Controls & Theory */}
-      <div className="flex flex-col justify-center gap-6">
-        <div className="flex gap-2 bg-stone-900 p-2 rounded-lg border border-stone-800">
-          <button onClick={() => setStage('conflict')} className={`flex-1 py-2 text-xs font-bold uppercase rounded transition-all ${stage === 'conflict' ? 'bg-stone-700 text-white' : 'text-stone-500 hover:text-stone-300'}`}>1. Confrontation</button>
-          <button onClick={() => setStage('threat')} className={`flex-1 py-2 text-xs font-bold uppercase rounded transition-all ${stage === 'threat' ? 'bg-red-900/50 text-red-300' : 'text-stone-500 hover:text-stone-300'}`}>2. Ritual Threat</button>
-          <button onClick={() => setStage('appeasement')} className={`flex-1 py-2 text-xs font-bold uppercase rounded transition-all ${stage === 'appeasement' ? 'bg-emerald-900/50 text-emerald-300' : 'text-stone-500 hover:text-stone-300'}`}>3. Appeasement</button>
+      <div className={`flex flex-col justify-center ${isPresentation ? 'gap-8' : 'gap-6'}`}>
+        <div className={`flex ${isPresentation ? 'flex-col gap-3' : 'gap-2'} bg-stone-900 ${isPresentation ? 'p-6' : 'p-2'} rounded-lg border border-stone-800`}>
+          <button onClick={() => setStage('conflict')} className={`flex-1 font-bold uppercase rounded transition-all ${stage === 'conflict' ? 'bg-stone-700 text-white' : 'text-stone-500 hover:text-stone-300'} ${isPresentation ? 'py-4 text-lg' : 'py-2 text-xs'}`}>1. Confrontation</button>
+          <button onClick={() => setStage('threat')} className={`flex-1 font-bold uppercase rounded transition-all ${stage === 'threat' ? 'bg-red-900/50 text-red-300' : 'text-stone-500 hover:text-stone-300'} ${isPresentation ? 'py-4 text-lg' : 'py-2 text-xs'}`}>2. Ritual Threat</button>
+          <button onClick={() => setStage('appeasement')} className={`flex-1 font-bold uppercase rounded transition-all ${stage === 'appeasement' ? 'bg-emerald-900/50 text-emerald-300' : 'text-stone-500 hover:text-stone-300'} ${isPresentation ? 'py-4 text-lg' : 'py-2 text-xs'}`}>3. Appeasement</button>
         </div>
 
-        <div className="bg-stone-900/50 p-8 border-l-4 border-amber-600 rounded-r-xl">
+        <div className={`bg-stone-900/50 border-l-4 border-amber-600 rounded-r-xl ${isPresentation ? 'p-12' : 'p-8'}`}>
           <h3 className={`font-serif text-amber-500 mb-4 ${isPresentation ? 'text-4xl' : 'text-2xl'}`}>Lorenz (1966)</h3>
           <p className={`text-stone-300 mb-6 leading-relaxed ${isPresentation ? 'text-xl' : 'text-sm'}`}>
             Observed that actual physical fighting is rare. Most aggression is <strong>Ritualistic</strong> (signaling). 

@@ -181,14 +181,14 @@ export default function MAOAMechanism({ isPresentation }) {
   }, [variant]);
 
   return (
-    <div className="flex flex-col h-full gap-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className={`flex flex-col h-full gap-8 ${isPresentation ? 'gap-16' : ''}`}>
+      <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 ${isPresentation ? 'gap-16' : ''}`}>
         {/* Visual Synapse */}
-        <div className="bg-black border border-indigo-800 rounded-xl relative overflow-hidden h-64 md:h-auto p-4 flex items-center justify-center shadow-inner">
+        <div className={`bg-black border border-indigo-800 rounded-xl relative overflow-hidden p-4 flex items-center justify-center shadow-inner ${isPresentation ? 'p-8 h-96' : 'h-64 md:h-auto'}`}>
           <div className="absolute inset-0 bg-indigo-900/10"></div>
 
           {/* Pre-synaptic */}
-          <div className="absolute top-0 w-32 h-12 bg-slate-800 rounded-b-xl border-b-4 border-slate-600 z-10 flex justify-center items-center text-[10px] text-slate-400 font-mono">PRE-SYNAPTIC</div>
+          <div className={`absolute top-0 w-32 h-12 bg-slate-800 rounded-b-xl border-b-4 border-slate-600 z-10 flex justify-center items-center text-slate-400 font-mono ${isPresentation ? 'text-xs' : 'text-[10px]'}`}>PRE-SYNAPTIC</div>
           
           {/* Rendering Entities */}
           <div className="absolute inset-0 pointer-events-none">
@@ -196,8 +196,8 @@ export default function MAOAMechanism({ isPresentation }) {
             {entities.pellets.map(p => (
               <div
                 key={p.id}
-                className="absolute w-2 h-2 rounded-full bg-yellow-400 shadow-[0_0_5px_rgba(250,204,21,0.8)]"
-                style={{ left: `${p.x}%`, top: `${p.y}%`, transition: 'all 0.05s linear' }}
+                className={`rounded-full bg-yellow-400 shadow-[0_0_5px_rgba(250,204,21,0.8)] ${isPresentation ? 'w-3 h-3' : 'w-2 h-2'}`}
+                style={{ left: `${p.x}%`, top: `${p.y}%`, transition: 'all 0.05s linear', position: 'absolute' }}
               ></div>
             ))}
 
@@ -205,12 +205,13 @@ export default function MAOAMechanism({ isPresentation }) {
             {entities.enzymes.map(enz => (
               <div
                 key={enz.id}
-                className="absolute w-6 h-6 text-fuchsia-500"
+                className={`text-fuchsia-500 ${isPresentation ? 'w-8 h-8' : 'w-6 h-6'}`}
                 style={{
                   left: `${enz.x}%`,
                   top: `${enz.y}%`,
                   transform: `rotate(${enz.angle}deg)`,
-                  transition: 'all 0.05s linear'
+                  transition: 'all 0.05s linear',
+                  position: 'absolute'
                 }}
               >
                 <svg viewBox="0 0 100 100" fill="currentColor">
@@ -221,30 +222,30 @@ export default function MAOAMechanism({ isPresentation }) {
           </div>
 
           {/* Post-synaptic */}
-          <div className="absolute bottom-0 w-32 h-12 bg-slate-800 rounded-t-xl border-t-4 border-slate-600 z-10 flex justify-center items-center text-[10px] text-slate-400 font-mono">POST-SYNAPTIC</div>
+          <div className={`absolute bottom-0 w-32 h-12 bg-slate-800 rounded-t-xl border-t-4 border-slate-600 z-10 flex justify-center items-center text-slate-400 font-mono ${isPresentation ? 'text-xs' : 'text-[10px]'}`}>POST-SYNAPTIC</div>
           
           {/* Status Overlay */}
-          <div className={`absolute top-4 right-4 px-3 py-1 rounded text-xs font-bold font-mono border ${variant === 'normal' ? 'bg-green-900/80 text-green-400 border-green-500' : 'bg-red-900/80 text-red-400 border-red-500'}`}>
+          <div className={`absolute top-4 right-4 px-3 py-1 rounded font-bold font-mono border ${isPresentation ? 'text-sm px-4 py-2' : 'text-xs'} ${variant === 'normal' ? 'bg-green-900/80 text-green-400 border-green-500' : 'bg-red-900/80 text-red-400 border-red-500'}`}>
             {variant === 'normal' ? "LEVELS: REGULATED" : "LEVELS: CRITICAL"}
           </div>
         </div>
 
         {/* Controls & Theory */}
-        <div className="flex flex-col justify-center gap-6">
-          <div className="flex gap-4">
-            <button onClick={() => setVariant('normal')} className={`flex-1 p-4 border rounded-xl text-left transition-all ${variant === 'normal' ? 'bg-indigo-900/50 border-indigo-500' : 'bg-indigo-950 border-indigo-900 opacity-50'}`}>
-              <strong className="block text-white mb-1 font-mono">MAOA-H (High)</strong>
-              <span className="text-xs text-indigo-300">High Enzyme Activity. <br/>Efficient Cleanup.</span>
+        <div className={`flex flex-col justify-center gap-6 ${isPresentation ? 'gap-8' : ''}`}>
+          <div className={`flex gap-4 ${isPresentation ? 'gap-6' : ''}`}>
+            <button onClick={() => setVariant('normal')} className={`flex-1 border rounded-xl text-left transition-all ${isPresentation ? 'p-6' : 'p-4'} ${variant === 'normal' ? 'bg-indigo-900/50 border-indigo-500' : 'bg-indigo-950 border-indigo-900 opacity-50'}`}>
+              <strong className={`block text-white mb-1 font-mono ${isPresentation ? 'text-lg' : ''}`}>MAOA-H (High)</strong>
+              <span className={`text-indigo-300 ${isPresentation ? 'text-base' : 'text-xs'}`}>High Enzyme Activity. <br/>Efficient Cleanup.</span>
             </button>
-            <button onClick={() => setVariant('low')} className={`flex-1 p-4 border rounded-xl text-left transition-all ${variant === 'low' ? 'bg-red-900/20 border-red-500' : 'bg-indigo-950 border-indigo-900 opacity-50'}`}>
-              <strong className="block text-white mb-1 font-mono">MAOA-L (Low)</strong>
-              <span className="text-xs text-red-300">Enzyme Deficit. <br/>Synaptic Flooding.</span>
+            <button onClick={() => setVariant('low')} className={`flex-1 border rounded-xl text-left transition-all ${isPresentation ? 'p-6' : 'p-4'} ${variant === 'low' ? 'bg-red-900/20 border-red-500' : 'bg-indigo-950 border-indigo-900 opacity-50'}`}>
+              <strong className={`block text-white mb-1 font-mono ${isPresentation ? 'text-lg' : ''}`}>MAOA-L (Low)</strong>
+              <span className={`text-red-300 ${isPresentation ? 'text-base' : 'text-xs'}`}>Enzyme Deficit. <br/>Synaptic Flooding.</span>
             </button>
           </div>
 
-          <div className="bg-indigo-900/20 p-6 rounded-xl border-l-4 border-fuchsia-500">
-            <h4 className="text-fuchsia-400 font-bold uppercase mb-2 text-sm font-mono">The "Warrior Gene" Mechanism</h4>
-            <p className={`text-indigo-100 ${isPresentation ? 'text-lg' : 'text-sm'} leading-relaxed`}>
+          <div className={`bg-indigo-900/20 rounded-xl border-l-4 border-fuchsia-500 ${isPresentation ? 'p-8' : 'p-6'}`}>
+            <h4 className={`text-fuchsia-400 font-bold uppercase mb-2 font-mono ${isPresentation ? 'text-base' : 'text-sm'}`}>The "Warrior Gene" Mechanism</h4>
+            <p className={`text-indigo-100 leading-relaxed ${isPresentation ? 'text-lg' : 'text-sm'}`}>
               The MAOA enzyme (Purple Triangles) is responsible for breaking down neurotransmitters like Serotonin (Yellow Dots) after a nerve impulse.
               <br/><br/>
               <strong>MAOA-L:</strong> Produces insufficient enzyme. The synapse floods with Serotonin. While low serotonin is usually linked to impulsivity, this state of <em>dysregulation</em> prevents the brain from returning to a calm baseline, triggering aggressive outbursts.
