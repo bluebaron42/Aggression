@@ -20,9 +20,9 @@ export default function Lesson5CritiqueGrid({ isPresentation }) {
               Bushman (2002)
             </h4>
           </div>
-          <div className={`text-slate-300 space-y-2 flex-grow ${isPresentation ? 'text-base' : 'text-xs'}`}>
-            <p className="font-bold text-red-100">Catharsis Myth</p>
-            <p className="text-slate-400">
+          <div className={`text-slate-300 space-y-2 flex-grow ${isPresentation ? 'text-xl' : 'text-xs'}`}>
+            <p className={`font-bold text-red-100 ${isPresentation ? 'text-xl' : 'text-sm'}`}>Catharsis Myth</p>
+            <p className={`text-slate-400 ${isPresentation ? 'text-lg' : 'text-xs'}`}>
               <strong>Finding:</strong> Participants who punched a punching bag after frustration were{' '}
               <span className="text-red-300 font-bold">MORE aggressive</span> toward others than control group.
             </p>
@@ -30,7 +30,7 @@ export default function Lesson5CritiqueGrid({ isPresentation }) {
               <strong>Problem:</strong> Original hypothesis predicted venting would <strong>reduce</strong> aggression
               (cathartic relief). This contradicts Dollard et al.
             </p>
-            <p className="text-red-300/70 text-xs italic">
+            <p className={`text-red-300/70 italic ${isPresentation ? 'text-base' : 'text-xs'}`}>
               Venting may increase arousal, not decrease it.
             </p>
           </div>
@@ -44,9 +44,9 @@ export default function Lesson5CritiqueGrid({ isPresentation }) {
               Berkowitz (1989)
             </h4>
           </div>
-          <div className={`text-slate-300 space-y-2 flex-grow ${isPresentation ? 'text-base' : 'text-xs'}`}>
-            <p className="font-bold text-orange-100">Negative Affect Theory</p>
-            <p className="text-slate-400">
+          <div className={`text-slate-300 space-y-2 flex-grow ${isPresentation ? 'text-xl' : 'text-xs'}`}>
+            <p className={`font-bold text-orange-100 ${isPresentation ? 'text-xl' : 'text-sm'}`}>Negative Affect Theory</p>
+            <p className={`text-slate-400 ${isPresentation ? 'text-lg' : 'text-xs'}`}>
               <strong>Revision:</strong> Not just frustration → aggression. Frustration creates{' '}
               <strong>negative affect</strong> (anger + other emotions).
             </p>
@@ -54,7 +54,7 @@ export default function Lesson5CritiqueGrid({ isPresentation }) {
               <strong>Mechanism:</strong> Negative affect + environmental cues (weapons, aggression-related priming)
               = behavioral aggression.
             </p>
-            <p className="text-orange-300/70 text-xs italic">
+            <p className={`text-orange-300/70 italic ${isPresentation ? 'text-base' : 'text-xs'}`}>
               Explains why catharsis fails; explains weapon effect.
             </p>
           </div>

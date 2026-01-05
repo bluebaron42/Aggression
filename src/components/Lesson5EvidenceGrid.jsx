@@ -20,9 +20,9 @@ export default function Lesson5EvidenceGrid({ isPresentation }) {
               Geen (1968)
             </h4>
           </div>
-          <div className={`text-slate-300 space-y-2 flex-grow ${isPresentation ? 'text-base' : 'text-xs'}`}>
-            <p className="font-bold text-orange-100">Jigsaw Puzzle</p>
-            <p className="text-slate-400">
+          <div className={`text-slate-300 space-y-2 flex-grow ${isPresentation ? 'text-xl' : 'text-xs'}`}>
+            <p className={`font-bold text-orange-100 ${isPresentation ? 'text-xl' : 'text-sm'}`}>Jigsaw Puzzle</p>
+            <p className={`text-slate-400 ${isPresentation ? 'text-lg' : 'text-xs'}`}>
               <strong>Method:</strong> Participants solved puzzle, confederate insulted some (frustration manipulation).
               Then participants gave shocks.
             </p>
@@ -30,7 +30,7 @@ export default function Lesson5EvidenceGrid({ isPresentation }) {
               <strong>Result:</strong> Frustrated + insulted group gave <span className="text-orange-300 font-bold">stronger shocks</span> than
               frustrated only. <strong>Frustration + aggression target = increased aggression.</strong>
             </p>
-            <p className="text-orange-300/70 text-xs italic">
+            <p className={`text-orange-300/70 italic ${isPresentation ? 'text-base' : 'text-xs'}`}>
               Supports H-A link when target is perceivable cause.
             </p>
           </div>
@@ -44,9 +44,9 @@ export default function Lesson5EvidenceGrid({ isPresentation }) {
               Berkowitz & LePage (1967)
             </h4>
           </div>
-          <div className={`text-slate-300 space-y-2 flex-grow ${isPresentation ? 'text-base' : 'text-xs'}`}>
-            <p className="font-bold text-orange-100">Weapon Effect</p>
-            <p className="text-slate-400">
+          <div className={`text-slate-300 space-y-2 flex-grow ${isPresentation ? 'text-xl' : 'text-xs'}`}>
+            <p className={`font-bold text-orange-100 ${isPresentation ? 'text-xl' : 'text-sm'}`}>Weapon Effect</p>
+            <p className={`text-slate-400 ${isPresentation ? 'text-lg' : 'text-xs'}`}>
               <strong>Method:</strong> Frustrated participants saw gun or badminton racket on desk. Gave shocks to
               confederate.
             </p>
@@ -54,7 +54,7 @@ export default function Lesson5EvidenceGrid({ isPresentation }) {
               <strong>Result:</strong> Gun condition: <span className="text-orange-300 font-bold">6.07 shocks</span>.
               Racket condition: 4.67 shocks. <strong>P &lt; .05</strong>
             </p>
-            <p className="text-orange-300/70 text-xs italic">
+            <p className={`text-orange-300/70 italic ${isPresentation ? 'text-base' : 'text-xs'}`}>
               Environmental cues trigger behavior when already frustrated.
             </p>
           </div>
