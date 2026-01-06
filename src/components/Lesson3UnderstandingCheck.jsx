@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react'
 import { CheckCircle, AlertCircle, Brain } from 'lucide-react'
 
-export default function AFLQuiz({ isPresentation }) {
+export default function Lesson3UnderstandingCheck({ isPresentation }) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState({})
   const [showFeedback, setShowFeedback] = useState(false)
@@ -19,61 +19,63 @@ export default function AFLQuiz({ isPresentation }) {
   // Randomize answer order on component mount
   const questions = useMemo(() => {
     const baseQuestions = [
-    {
-      id: 1,
-      type: 'matching',
-      question: 'Match the brain region to its primary function:',
-      items: [
-        { label: 'Amygdala', options: ['Threat assessment & emotional response', 'Impulse control', 'Memory formation'], correct: 0 },
-        { label: 'OFC (Orbitofrontal Cortex)', options: ['Threat assessment & emotional response', 'Impulse control & inhibition', 'Motor planning'], correct: 1 }
-      ],
-      feedback: 'The amygdala detects threats quickly, while the OFC helps us control our impulses. Together they create a balance between threat response and self-control.'
-    },
+      {
+        id: 1,
+        type: 'scenario',
+        question: 'What is a Fixed Action Pattern (FAP)?',
+        options: [
+          { text: 'A learned sequence of behaviors triggered by practice', correct: false },
+          { text: 'An innate, species-specific sequence triggered by a sign stimulus', correct: true },
+          { text: 'A flexible behavior that can be stopped mid-sequence', correct: false },
+          { text: 'A random aggressive response with no specific trigger', correct: false }
+        ],
+        feedback: 'Correct! A Fixed Action Pattern is an INNATE (not learned), species-specific behavioral sequence that is triggered by a sign stimulus and runs to completion (ballistic). Once started, it cannot be stopped. This is central to Lorenz\'s ethological theory of aggression.'
+      },
     {
       id: 2,
-      type: 'scenario',
-      question: 'A person has low serotonin levels. What would you expect to happen?',
-      options: [
-        { text: 'Increased self-control and calm behavior', correct: false },
-        { text: 'Reduced firing in the OFC, leading to impulsive aggression', correct: true },
-        { text: 'Heightened amygdala activity in threat situations only', correct: false },
-        { text: 'No change in behavior', correct: false }
+      type: 'matching',
+      question: 'Match the ethological concept to its definition:',
+      items: [
+        { label: 'Sign Stimulus', options: ['The innate behavioral sequence', 'The environmental trigger that releases the FAP', 'The brain mechanism that stores instinct'], correct: 1 },
+        { label: 'Innate Releasing Mechanism (IRM)', options: ['The neural template that detects the sign stimulus', 'The behavior itself', 'The evolutionary benefit'], correct: 0 }
       ],
-      feedback: 'Correct! Low serotonin reduces the ability of the OFC to inhibit aggressive impulses, making impulsive aggression more likely. This is a key mechanism in the neural model of aggression.'
+      feedback: 'Sign stimuli are environmental triggers (like the red spot on a stickleback). The IRM is the neural/brain template that recognizes the sign stimulus and releases the FAP. Together they form the instinct pathway: Sign Stimulus → IRM → FAP.'
     },
     {
       id: 3,
       type: 'scenario',
-      question: 'A person has high testosterone and high cortisol (stress). According to the dual-hormone hypothesis, what would happen?',
+      question: 'What did Tinbergen (1951) discover about stickleback aggression?',
       options: [
-        { text: 'Maximum aggression due to both hormones', correct: false },
-        { text: 'High testosterone drives aggression (cortisol has no effect)', correct: false },
-        { text: 'High cortisol blocks the testosterone effect, limiting aggression', correct: true },
-        { text: 'Both hormones cancel each other out completely', correct: false }
+        { text: 'Sticklebacks only attack realistic-looking fish models', correct: false },
+        { text: 'Shape doesn\'t matter - any model with a red spot triggers attack (FAP)', correct: true },
+        { text: 'Sticklebacks need to learn to be aggressive', correct: false },
+        { text: 'Sticklebacks only attack during feeding time', correct: false }
       ],
-      feedback: 'Excellent! The dual-hormone hypothesis explains that testosterone only predicts aggression when cortisol is LOW. High stress (cortisol) blocks testosterone\'s effect on the amygdala, preventing aggressive behavior.'
+      feedback: 'Exactly! Tinbergen showed that male sticklebacks would attack crude wooden models as long as they had a red underside (sign stimulus), but ignored realistic models without red. The shape was irrelevant - only the red spot mattered. This demonstrated the FAP concept beautifully.'
     },
     {
       id: 4,
-      type: 'matching',
-      question: 'Match the neurotransmitter/hormone to its effect on aggression:',
-      items: [
-        { label: 'Serotonin', options: ['Increases aggression when high', 'Decreases aggression (inhibitory)', 'Has no effect'], correct: 1 },
-        { label: 'Testosterone', options: ['Decreases aggression', 'Increases aggression through amygdala activation', 'Regulates serotonin only'], correct: 1 }
+      type: 'scenario',
+      question: 'According to Lorenz, why does ritualistic aggression (threat displays) exist in nature?',
+      options: [
+        { text: 'To entertain observers', correct: false },
+        { text: 'To prevent actual physical harm while still resolving conflicts', correct: true },
+        { text: 'To waste the opponent\'s energy', correct: false },
+        { text: 'Rituals have no evolutionary function', correct: false }
       ],
-      feedback: 'Serotonin is inhibitory - low levels increase impulsive aggression. Testosterone is excitatory - high levels increase amygdala reactivity. Understanding these opposing effects helps explain individual differences in aggression.'
+      feedback: 'Correct! Lorenz argued that ritualistic aggression (displays, posturing) evolved because it\'s ADAPTIVE - it allows conflicts to be resolved without serious injury or death. Appeasement signals also prevent escalation. However, Goodall\'s chimps challenged this - they ignored appeasement and killed rivals anyway.'
     },
     {
       id: 5,
       type: 'scenario',
-      question: 'Explain what would happen in someone with BOTH low serotonin AND high testosterone:',
+      question: 'What is the main weakness of applying ethological explanations to HUMAN aggression?',
       options: [
-        { text: 'No effect on aggression', correct: false },
-        { text: 'Slightly increased aggression', correct: false },
-        { text: 'Critically high risk of aggressive behavior (explosive aggression)', correct: true },
-        { text: 'Decreased aggression due to hormone conflict', correct: false }
+        { text: 'Humans have no instincts at all', correct: false },
+        { text: 'Cultural differences show environment/learning override instinct', correct: true },
+        { text: 'Ethology has no supporting evidence', correct: false },
+        { text: 'FAPs don\'t exist in animals', correct: false }
       ],
-      feedback: 'Perfect! This is the "critical state" scenario. Low serotonin removes the inhibitory brakes from the OFC, AND high testosterone amplifies the amygdala\'s threat response. This is a dangerous combination that significantly increases aggression risk.'
+      feedback: 'Excellent critical thinking! Nisbett (1993) found huge cultural differences in aggression (e.g., Northern vs. Southern US "culture of honour"). If aggression were purely instinctual/ethological, we wouldn\'t see such variation. Culture and learning appear to override biological instincts in humans, making ethological explanations reductionist.'
     }
   ]
 
@@ -116,7 +118,7 @@ export default function AFLQuiz({ isPresentation }) {
     <div className={`flex flex-col h-full gap-6 ${isPresentation ? 'px-12' : ''}`}>
       {/* Progress */}
       <div className="flex items-center justify-between">
-        <h3 className={`font-bold text-red-400 uppercase tracking-widest ${isPresentation ? 'text-2xl' : 'text-lg'}`}>
+        <h3 className={`font-bold text-amber-400 uppercase tracking-widest ${isPresentation ? 'text-2xl' : 'text-lg'}`}>
           Check Your Understanding
         </h3>
         <span className={`font-mono text-slate-400 ${isPresentation ? 'text-xl' : 'text-sm'}`}>
@@ -127,7 +129,7 @@ export default function AFLQuiz({ isPresentation }) {
       {/* Progress bar */}
       <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
         <div
-          className="h-full bg-red-500 transition-all duration-300"
+          className="h-full bg-amber-500 transition-all duration-300"
           style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
         />
       </div>
@@ -143,7 +145,7 @@ export default function AFLQuiz({ isPresentation }) {
           <div className="space-y-6">
             {currentQ.items.map((item, itemIdx) => (
               <div key={itemIdx} className="bg-slate-800/50 p-6 rounded-lg border border-slate-700">
-                <p className={`font-bold text-red-300 mb-3 ${isPresentation ? 'text-2xl' : 'text-base'}`}>
+                <p className={`font-bold text-amber-300 mb-3 ${isPresentation ? 'text-2xl' : 'text-base'}`}>
                   {item.label}
                 </p>
                 <div className="space-y-2">
@@ -158,7 +160,7 @@ export default function AFLQuiz({ isPresentation }) {
                       }}
                       className={`w-full text-left p-3 rounded-lg transition-all text-sm border ${
                         userAnswer?.[itemIdx] === optIdx
-                          ? 'bg-red-700 border-red-600 text-white'
+                          ? 'bg-amber-700 border-amber-600 text-white'
                           : 'bg-slate-700 border-transparent hover:bg-slate-600 text-slate-300 hover:text-white'
                       }`}
                     >
@@ -184,7 +186,7 @@ export default function AFLQuiz({ isPresentation }) {
                 className={`w-full text-left p-4 rounded-lg transition-all border font-medium ${
                   userAnswer === option
                     ? isAnswered ? (option.correct ? 'bg-green-900/30 border-green-500 text-green-300' : 'bg-red-900/30 border-red-500 text-red-300')
-                      : 'bg-red-700 border-red-600 text-white'
+                      : 'bg-amber-700 border-amber-600 text-white'
                     : 'bg-slate-800 border-slate-700 hover:bg-slate-700 text-slate-300 hover:text-white'
                 }`}
               >
@@ -229,7 +231,7 @@ export default function AFLQuiz({ isPresentation }) {
           className={`px-6 py-3 font-bold rounded-lg transition-all border ${
             currentQuestion === 0
               ? 'border-transparent text-slate-600 cursor-not-allowed'
-              : 'border-red-700 text-red-500 hover:bg-red-900/30 hover:text-white'
+              : 'border-amber-700 text-amber-500 hover:bg-amber-900/30 hover:text-white'
           }`}
         >
           ← BACK
@@ -255,7 +257,7 @@ export default function AFLQuiz({ isPresentation }) {
             disabled={!isAnswered}
             className={`px-8 py-3 font-bold rounded-lg transition-all ${
               isAnswered
-                ? 'bg-red-600 hover:bg-red-500 text-white shadow-lg'
+                ? 'bg-amber-600 hover:bg-amber-500 text-white shadow-lg'
                 : 'bg-slate-700 text-slate-500 cursor-not-allowed'
             }`}
           >

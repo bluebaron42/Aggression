@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react'
 import { CheckCircle, AlertCircle, Brain } from 'lucide-react'
 
-export default function AFLQuiz({ isPresentation }) {
+export default function Lesson5UnderstandingCheck({ isPresentation }) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState({})
   const [showFeedback, setShowFeedback] = useState(false)
@@ -21,59 +21,61 @@ export default function AFLQuiz({ isPresentation }) {
     const baseQuestions = [
     {
       id: 1,
-      type: 'matching',
-      question: 'Match the brain region to its primary function:',
-      items: [
-        { label: 'Amygdala', options: ['Threat assessment & emotional response', 'Impulse control', 'Memory formation'], correct: 0 },
-        { label: 'OFC (Orbitofrontal Cortex)', options: ['Threat assessment & emotional response', 'Impulse control & inhibition', 'Motor planning'], correct: 1 }
+      type: 'scenario',
+      question: 'According to Dollard et al. (1939), what is the relationship between frustration and aggression?',
+      options: [
+        { text: 'Frustration sometimes leads to aggression', correct: false },
+        { text: 'Frustration ALWAYS leads to aggression (inevitable)', correct: true },
+        { text: 'Frustration has no relationship with aggression', correct: false },
+        { text: 'Frustration only leads to aggression in males', correct: false }
       ],
-      feedback: 'The amygdala detects threats quickly, while the OFC helps us control our impulses. Together they create a balance between threat response and self-control.'
+      feedback: 'Correct! Dollard\'s original hypothesis stated that frustration ALWAYS produces aggression. This was a bold, deterministic claim - like a hydraulic pressure model where blocked goals build pressure that must be released as aggression. However, this absolute claim was later challenged and reformulated by Berkowitz.'
     },
     {
       id: 2,
       type: 'scenario',
-      question: 'A person has low serotonin levels. What would you expect to happen?',
+      question: 'What does the "Weapon Effect" (Berkowitz & LePage, 1967) demonstrate?',
       options: [
-        { text: 'Increased self-control and calm behavior', correct: false },
-        { text: 'Reduced firing in the OFC, leading to impulsive aggression', correct: true },
-        { text: 'Heightened amygdala activity in threat situations only', correct: false },
-        { text: 'No change in behavior', correct: false }
+        { text: 'Weapons make people feel safer', correct: false },
+        { text: 'Environmental cues (like weapons) can prime aggressive thoughts and behavior', correct: true },
+        { text: 'Only trained soldiers are affected by the presence of weapons', correct: false },
+        { text: 'Weapons reduce aggression through deterrence', correct: false }
       ],
-      feedback: 'Correct! Low serotonin reduces the ability of the OFC to inhibit aggressive impulses, making impulsive aggression more likely. This is a key mechanism in the neural model of aggression.'
+      feedback: 'Exactly! The weapon effect shows that aggressive cues in the environment can trigger aggressive behavior. In the study, participants gave stronger electric shocks when a gun was present vs. badminton rackets. This supports Berkowitz\'s idea that aggression is cued by environmental triggers, not just internal frustration.'
     },
     {
       id: 3,
-      type: 'scenario',
-      question: 'A person has high testosterone and high cortisol (stress). According to the dual-hormone hypothesis, what would happen?',
-      options: [
-        { text: 'Maximum aggression due to both hormones', correct: false },
-        { text: 'High testosterone drives aggression (cortisol has no effect)', correct: false },
-        { text: 'High cortisol blocks the testosterone effect, limiting aggression', correct: true },
-        { text: 'Both hormones cancel each other out completely', correct: false }
+      type: 'matching',
+      question: 'Match the study to its key finding:',
+      items: [
+        { label: 'Berkowitz & LePage (1967)', options: ['Stronger shocks given when guns were present', 'Venting anger INCREASES aggression', 'Impossible puzzles increase frustration'], correct: 0 },
+        { label: 'Bushman (2002)', options: ['Weapons prime aggression', 'Catharsis hypothesis is FALSE - venting increases aggression', 'Cortisol moderates testosterone'], correct: 1 }
       ],
-      feedback: 'Excellent! The dual-hormone hypothesis explains that testosterone only predicts aggression when cortisol is LOW. High stress (cortisol) blocks testosterone\'s effect on the amygdala, preventing aggressive behavior.'
+      feedback: 'The weapon effect (Berkowitz) showed environmental priming of aggression. Bushman\'s study challenged the catharsis hypothesis - people who "vented" by hitting a punching bag were MORE aggressive afterward, not less. This suggests expressing anger doesn\'t reduce it - it rehearses and intensifies it.'
     },
     {
       id: 4,
-      type: 'matching',
-      question: 'Match the neurotransmitter/hormone to its effect on aggression:',
-      items: [
-        { label: 'Serotonin', options: ['Increases aggression when high', 'Decreases aggression (inhibitory)', 'Has no effect'], correct: 1 },
-        { label: 'Testosterone', options: ['Decreases aggression', 'Increases aggression through amygdala activation', 'Regulates serotonin only'], correct: 1 }
+      type: 'scenario',
+      question: 'How did Berkowitz REFORMULATE the original frustration-aggression hypothesis?',
+      options: [
+        { text: 'He said frustration has no effect on aggression', correct: false },
+        { text: 'He added that frustration must be combined with aggressive CUES in the environment', correct: true },
+        { text: 'He said only physical frustration leads to aggression', correct: false },
+        { text: 'He removed all mention of frustration', correct: false }
       ],
-      feedback: 'Serotonin is inhibitory - low levels increase impulsive aggression. Testosterone is excitatory - high levels increase amygdala reactivity. Understanding these opposing effects helps explain individual differences in aggression.'
+      feedback: 'Perfect! Berkowitz reformulated the hypothesis to include environmental cues. Frustration creates a readiness for aggression (negative affect), but aggressive cues (weapons, violent images, aggressive words) are needed to actually trigger the behavior. This explains why frustration doesn\'t ALWAYS lead to aggression.'
     },
     {
       id: 5,
       type: 'scenario',
-      question: 'Explain what would happen in someone with BOTH low serotonin AND high testosterone:',
+      question: 'Why is the Dual-Hormone Hypothesis (Testosterone + Cortisol) relevant to the frustration-aggression model?',
       options: [
-        { text: 'No effect on aggression', correct: false },
-        { text: 'Slightly increased aggression', correct: false },
-        { text: 'Critically high risk of aggressive behavior (explosive aggression)', correct: true },
-        { text: 'Decreased aggression due to hormone conflict', correct: false }
+        { text: 'It has no relevance to frustration', correct: false },
+        { text: 'High cortisol (stress/frustration) can BLOCK testosterone\'s aggressive effects', correct: true },
+        { text: 'Cortisol always increases aggression', correct: false },
+        { text: 'Testosterone is only produced during frustration', correct: false }
       ],
-      feedback: 'Perfect! This is the "critical state" scenario. Low serotonin removes the inhibitory brakes from the OFC, AND high testosterone amplifies the amygdala\'s threat response. This is a dangerous combination that significantly increases aggression risk.'
+      feedback: 'Excellent integration! The dual-hormone hypothesis shows that stress (cortisol) - which often accompanies frustration - can actually INHIBIT the aggressive effects of testosterone. This adds biological nuance to the frustration-aggression model: high stress might suppress aggression rather than cause it, contradicting Dollard\'s simple hydraulic model.'
     }
   ]
 
@@ -116,7 +118,7 @@ export default function AFLQuiz({ isPresentation }) {
     <div className={`flex flex-col h-full gap-6 ${isPresentation ? 'px-12' : ''}`}>
       {/* Progress */}
       <div className="flex items-center justify-between">
-        <h3 className={`font-bold text-red-400 uppercase tracking-widest ${isPresentation ? 'text-2xl' : 'text-lg'}`}>
+        <h3 className={`font-bold text-orange-400 uppercase tracking-widest ${isPresentation ? 'text-2xl' : 'text-lg'}`}>
           Check Your Understanding
         </h3>
         <span className={`font-mono text-slate-400 ${isPresentation ? 'text-xl' : 'text-sm'}`}>
@@ -127,7 +129,7 @@ export default function AFLQuiz({ isPresentation }) {
       {/* Progress bar */}
       <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
         <div
-          className="h-full bg-red-500 transition-all duration-300"
+          className="h-full bg-orange-500 transition-all duration-300"
           style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
         />
       </div>
@@ -143,7 +145,7 @@ export default function AFLQuiz({ isPresentation }) {
           <div className="space-y-6">
             {currentQ.items.map((item, itemIdx) => (
               <div key={itemIdx} className="bg-slate-800/50 p-6 rounded-lg border border-slate-700">
-                <p className={`font-bold text-red-300 mb-3 ${isPresentation ? 'text-2xl' : 'text-base'}`}>
+                <p className={`font-bold text-orange-300 mb-3 ${isPresentation ? 'text-2xl' : 'text-base'}`}>
                   {item.label}
                 </p>
                 <div className="space-y-2">
@@ -158,7 +160,7 @@ export default function AFLQuiz({ isPresentation }) {
                       }}
                       className={`w-full text-left p-3 rounded-lg transition-all text-sm border ${
                         userAnswer?.[itemIdx] === optIdx
-                          ? 'bg-red-700 border-red-600 text-white'
+                          ? 'bg-orange-700 border-orange-600 text-white'
                           : 'bg-slate-700 border-transparent hover:bg-slate-600 text-slate-300 hover:text-white'
                       }`}
                     >
@@ -184,7 +186,7 @@ export default function AFLQuiz({ isPresentation }) {
                 className={`w-full text-left p-4 rounded-lg transition-all border font-medium ${
                   userAnswer === option
                     ? isAnswered ? (option.correct ? 'bg-green-900/30 border-green-500 text-green-300' : 'bg-red-900/30 border-red-500 text-red-300')
-                      : 'bg-red-700 border-red-600 text-white'
+                      : 'bg-orange-700 border-orange-600 text-white'
                     : 'bg-slate-800 border-slate-700 hover:bg-slate-700 text-slate-300 hover:text-white'
                 }`}
               >
@@ -229,7 +231,7 @@ export default function AFLQuiz({ isPresentation }) {
           className={`px-6 py-3 font-bold rounded-lg transition-all border ${
             currentQuestion === 0
               ? 'border-transparent text-slate-600 cursor-not-allowed'
-              : 'border-red-700 text-red-500 hover:bg-red-900/30 hover:text-white'
+              : 'border-orange-700 text-orange-500 hover:bg-orange-900/30 hover:text-white'
           }`}
         >
           ← BACK
@@ -255,7 +257,7 @@ export default function AFLQuiz({ isPresentation }) {
             disabled={!isAnswered}
             className={`px-8 py-3 font-bold rounded-lg transition-all ${
               isAnswered
-                ? 'bg-red-600 hover:bg-red-500 text-white shadow-lg'
+                ? 'bg-orange-600 hover:bg-orange-500 text-white shadow-lg'
                 : 'bg-slate-700 text-slate-500 cursor-not-allowed'
             }`}
           >

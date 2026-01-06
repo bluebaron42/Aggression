@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react'
 import { CheckCircle, AlertCircle, Brain } from 'lucide-react'
 
-export default function AFLQuiz({ isPresentation }) {
+export default function Lesson4UnderstandingCheck({ isPresentation }) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState({})
   const [showFeedback, setShowFeedback] = useState(false)
@@ -21,59 +21,61 @@ export default function AFLQuiz({ isPresentation }) {
     const baseQuestions = [
     {
       id: 1,
-      type: 'matching',
-      question: 'Match the brain region to its primary function:',
-      items: [
-        { label: 'Amygdala', options: ['Threat assessment & emotional response', 'Impulse control', 'Memory formation'], correct: 0 },
-        { label: 'OFC (Orbitofrontal Cortex)', options: ['Threat assessment & emotional response', 'Impulse control & inhibition', 'Motor planning'], correct: 1 }
+      type: 'scenario',
+      question: 'Why does paternity uncertainty create evolutionary pressure for male aggression?',
+      options: [
+        { text: 'Males want to control all resources in their territory', correct: false },
+        { text: 'Males risk investing resources in offspring that are not genetically theirs', correct: true },
+        { text: 'Males are naturally more aggressive than females', correct: false },
+        { text: 'Males need to compete for food', correct: false }
       ],
-      feedback: 'The amygdala detects threats quickly, while the OFC helps us control our impulses. Together they create a balance between threat response and self-control.'
+      feedback: 'Correct! Paternity uncertainty means males face the risk of cuckoldry - investing time and resources in raising another male\'s offspring. This evolutionary pressure favored the development of mate retention strategies, including aggressive behaviors to prevent infidelity.'
     },
     {
       id: 2,
-      type: 'scenario',
-      question: 'A person has low serotonin levels. What would you expect to happen?',
-      options: [
-        { text: 'Increased self-control and calm behavior', correct: false },
-        { text: 'Reduced firing in the OFC, leading to impulsive aggression', correct: true },
-        { text: 'Heightened amygdala activity in threat situations only', correct: false },
-        { text: 'No change in behavior', correct: false }
+      type: 'matching',
+      question: 'Match the mate retention strategy to its description:',
+      items: [
+        { label: 'Direct Guarding', options: ['Threatening rival males or the partner', 'Monitoring partner\'s location and activities', 'Gifts and emotional manipulation'], correct: 1 },
+        { label: 'Negative Inducements', options: ['Threatening rival males or the partner', 'Monitoring partner\'s location', 'Isolating partner from friends'], correct: 0 }
       ],
-      feedback: 'Correct! Low serotonin reduces the ability of the OFC to inhibit aggressive impulses, making impulsive aggression more likely. This is a key mechanism in the neural model of aggression.'
+      feedback: 'Direct guarding involves vigilance - checking up on your partner, monitoring where they go. Negative inducements use threats and coercion. Both strategies evolved to reduce the risk of infidelity, though they vary in intensity and can escalate to violence.'
     },
     {
       id: 3,
       type: 'scenario',
-      question: 'A person has high testosterone and high cortisol (stress). According to the dual-hormone hypothesis, what would happen?',
+      question: 'According to Shackleford et al. (2005), what is the relationship between mate retention behaviors and intimate partner violence (IPV)?',
       options: [
-        { text: 'Maximum aggression due to both hormones', correct: false },
-        { text: 'High testosterone drives aggression (cortisol has no effect)', correct: false },
-        { text: 'High cortisol blocks the testosterone effect, limiting aggression', correct: true },
-        { text: 'Both hormones cancel each other out completely', correct: false }
+        { text: 'No relationship - they are independent behaviors', correct: false },
+        { text: 'Negative correlation - more retention means less violence', correct: false },
+        { text: 'Positive correlation - higher mate retention predicts higher IPV', correct: true },
+        { text: 'Only direct guarding correlates with IPV', correct: false }
       ],
-      feedback: 'Excellent! The dual-hormone hypothesis explains that testosterone only predicts aggression when cortisol is LOW. High stress (cortisol) blocks testosterone\'s effect on the amygdala, preventing aggressive behavior.'
+      feedback: 'Exactly right! Shackleford\'s study of 107 married couples found a positive correlation between mate retention strategies and IPV. Men who used more mate retention behaviors were more likely to commit violence against their partners, supporting the evolutionary explanation.'
     },
     {
       id: 4,
-      type: 'matching',
-      question: 'Match the neurotransmitter/hormone to its effect on aggression:',
-      items: [
-        { label: 'Serotonin', options: ['Increases aggression when high', 'Decreases aggression (inhibitory)', 'Has no effect'], correct: 1 },
-        { label: 'Testosterone', options: ['Decreases aggression', 'Increases aggression through amygdala activation', 'Regulates serotonin only'], correct: 1 }
+      type: 'scenario',
+      question: 'How does Volk et al. (2012) explain bullying from an evolutionary perspective?',
+      options: [
+        { text: 'Bullying is a pathological behavior with no adaptive value', correct: false },
+        { text: 'Bullying can be adaptive - it secures resources and status', correct: true },
+        { text: 'Bullying only occurs due to poor parenting', correct: false },
+        { text: 'Bullying is learned purely from media', correct: false }
       ],
-      feedback: 'Serotonin is inhibitory - low levels increase impulsive aggression. Testosterone is excitatory - high levels increase amygdala reactivity. Understanding these opposing effects helps explain individual differences in aggression.'
+      feedback: 'Correct! Volk argues that bullying can be evolutionarily adaptive. For males, it establishes dominance and access to resources. For females, it can eliminate rivals and protect relationship fidelity. This doesn\'t justify bullying, but suggests interventions need to provide alternative routes to status.'
     },
     {
       id: 5,
       type: 'scenario',
-      question: 'Explain what would happen in someone with BOTH low serotonin AND high testosterone:',
+      question: 'What is the main weakness of evolutionary explanations of aggression?',
       options: [
-        { text: 'No effect on aggression', correct: false },
-        { text: 'Slightly increased aggression', correct: false },
-        { text: 'Critically high risk of aggressive behavior (explosive aggression)', correct: true },
-        { text: 'Decreased aggression due to hormone conflict', correct: false }
+        { text: 'There is no research evidence to support them', correct: false },
+        { text: 'They cannot explain gender differences in aggression', correct: false },
+        { text: 'Cultural differences contradict the idea of universal evolutionary drives', correct: true },
+        { text: 'They only apply to animals, not humans', correct: false }
       ],
-      feedback: 'Perfect! This is the "critical state" scenario. Low serotonin removes the inhibitory brakes from the OFC, AND high testosterone amplifies the amygdala\'s threat response. This is a dangerous combination that significantly increases aggression risk.'
+      feedback: 'Excellent critical thinking! While evolutionary theory predicts universal behaviors, we see huge cultural variation. The !Kung San devalue aggression while the Yanomamö reward it with status. If aggression were purely driven by evolution, such cultural differences shouldn\'t exist - suggesting social/cultural factors override biological ones.'
     }
   ]
 
@@ -116,7 +118,7 @@ export default function AFLQuiz({ isPresentation }) {
     <div className={`flex flex-col h-full gap-6 ${isPresentation ? 'px-12' : ''}`}>
       {/* Progress */}
       <div className="flex items-center justify-between">
-        <h3 className={`font-bold text-red-400 uppercase tracking-widest ${isPresentation ? 'text-2xl' : 'text-lg'}`}>
+        <h3 className={`font-bold text-amber-400 uppercase tracking-widest ${isPresentation ? 'text-2xl' : 'text-lg'}`}>
           Check Your Understanding
         </h3>
         <span className={`font-mono text-slate-400 ${isPresentation ? 'text-xl' : 'text-sm'}`}>
@@ -127,7 +129,7 @@ export default function AFLQuiz({ isPresentation }) {
       {/* Progress bar */}
       <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
         <div
-          className="h-full bg-red-500 transition-all duration-300"
+          className="h-full bg-amber-500 transition-all duration-300"
           style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
         />
       </div>
@@ -143,7 +145,7 @@ export default function AFLQuiz({ isPresentation }) {
           <div className="space-y-6">
             {currentQ.items.map((item, itemIdx) => (
               <div key={itemIdx} className="bg-slate-800/50 p-6 rounded-lg border border-slate-700">
-                <p className={`font-bold text-red-300 mb-3 ${isPresentation ? 'text-2xl' : 'text-base'}`}>
+                <p className={`font-bold text-amber-300 mb-3 ${isPresentation ? 'text-2xl' : 'text-base'}`}>
                   {item.label}
                 </p>
                 <div className="space-y-2">
@@ -158,7 +160,7 @@ export default function AFLQuiz({ isPresentation }) {
                       }}
                       className={`w-full text-left p-3 rounded-lg transition-all text-sm border ${
                         userAnswer?.[itemIdx] === optIdx
-                          ? 'bg-red-700 border-red-600 text-white'
+                          ? 'bg-amber-700 border-amber-600 text-white'
                           : 'bg-slate-700 border-transparent hover:bg-slate-600 text-slate-300 hover:text-white'
                       }`}
                     >
@@ -184,7 +186,7 @@ export default function AFLQuiz({ isPresentation }) {
                 className={`w-full text-left p-4 rounded-lg transition-all border font-medium ${
                   userAnswer === option
                     ? isAnswered ? (option.correct ? 'bg-green-900/30 border-green-500 text-green-300' : 'bg-red-900/30 border-red-500 text-red-300')
-                      : 'bg-red-700 border-red-600 text-white'
+                      : 'bg-amber-700 border-amber-600 text-white'
                     : 'bg-slate-800 border-slate-700 hover:bg-slate-700 text-slate-300 hover:text-white'
                 }`}
               >
@@ -229,7 +231,7 @@ export default function AFLQuiz({ isPresentation }) {
           className={`px-6 py-3 font-bold rounded-lg transition-all border ${
             currentQuestion === 0
               ? 'border-transparent text-slate-600 cursor-not-allowed'
-              : 'border-red-700 text-red-500 hover:bg-red-900/30 hover:text-white'
+              : 'border-amber-700 text-amber-500 hover:bg-amber-900/30 hover:text-white'
           }`}
         >
           ← BACK
@@ -255,7 +257,7 @@ export default function AFLQuiz({ isPresentation }) {
             disabled={!isAnswered}
             className={`px-8 py-3 font-bold rounded-lg transition-all ${
               isAnswered
-                ? 'bg-red-600 hover:bg-red-500 text-white shadow-lg'
+                ? 'bg-amber-600 hover:bg-amber-500 text-white shadow-lg'
                 : 'bg-slate-700 text-slate-500 cursor-not-allowed'
             }`}
           >

@@ -5,7 +5,7 @@ import {
   Shield, Target, AlertTriangle, Microscope, Dna, FileText, FlaskConical,
   TrendingUp, Power, Syringe, Ban, Check, RefreshCw, GitMerge, FileCode,
   Eye, Fish, Swords, BookOpen, Leaf, Flag, Skull, Scroll, MapPin, Baby,
-  Users, HelpCircle, Radio, Scan, Globe, Gauge
+  Users, HelpCircle, Radio, Scan, Globe, Gauge, Tv
 } from 'lucide-react'
 
 // Import components
@@ -28,11 +28,13 @@ import RitualDisplay from './components/RitualDisplay'
 import InstinctAnatomy from './components/InstinctAnatomy'
 import SticklebackLabSim from './components/SticklebackLabSim'
 import Lesson3EssayPlan from './components/Lesson3EssayPlan'
+import Lesson3UnderstandingCheck from './components/Lesson3UnderstandingCheck'
 import Lesson4DoNowQuiz from './components/Lesson4DoNowQuiz'
 import PaternityRisk from './components/PaternityRisk'
 import MateRetentionSystem from './components/MateRetentionSystem'
 import EvolutionaryImperativeSim from './components/EvolutionaryImperativeSim'
 import Lesson4EssayPlan from './components/Lesson4EssayPlan'
+import Lesson4UnderstandingCheck from './components/Lesson4UnderstandingCheck'
 import Lesson5DoNowQuiz from './components/Lesson5DoNowQuiz'
 import PressureTank from './components/PressureTank'
 import WeaponEffect from './components/WeaponEffect'
@@ -40,6 +42,14 @@ import ImpossibleTaskSim from './components/ImpossibleTaskSim'
 import Lesson5EvidenceGrid from './components/Lesson5EvidenceGrid'
 import Lesson5CritiqueGrid from './components/Lesson5CritiqueGrid'
 import Lesson5EssayPlan from './components/Lesson5EssayPlan'
+import Lesson5UnderstandingCheck from './components/Lesson5UnderstandingCheck'
+import ARRMFlowchart from './components/ARRMFlowchart'
+import VicariousLearningViz from './components/VicariousLearningViz'
+import BoboLabSim from './components/BoboLabSim'
+import Lesson6EvidenceGrid from './components/Lesson6EvidenceGrid'
+import Lesson6CritiqueGrid from './components/Lesson6CritiqueGrid'
+import Lesson6EssayPlan from './components/Lesson6EssayPlan'
+import Lesson6UnderstandingCheck from './components/Lesson6UnderstandingCheck'
 
 // Data
 const lessons = [
@@ -48,7 +58,7 @@ const lessons = [
   { id: 3, title: "03: Ethological Explanations", active: true, complete: false },
   { id: 4, title: "04: Evolutionary Explanations", active: true, complete: false },
   { id: 5, title: "05: Social Psych I (Frustration)", active: true, complete: false },
-  { id: 6, title: "06: Social Psych II (SLT)", active: false, complete: false },
+  { id: 6, title: "06: Social Psych II (SLT)", active: true, complete: false },
   { id: 7, title: "07: Social Psych III (De-individuation)", active: false, complete: false },
   { id: 8, title: "08: Institutional Aggression", active: false, complete: false },
   { id: 9, title: "09: Media Influences", active: false, complete: false },
@@ -94,12 +104,20 @@ const lesson5DoNow = [
   { id: 5, question: "Neural: Which hormone interacts with frustration in the Dual-Hormone Hypothesis?", options: ["Serotonin", "Cortisol", "Adrenaline"], correct: 1 }
 ]
 
+const lesson6DoNow = [
+  { id: 1, question: "SLT: Learning by observing others is called...", options: ["Classical conditioning", "Operant conditioning", "Observational learning"], correct: 2 },
+  { id: 2, question: "SLT: Which process involves storing behavior in memory?", options: ["Attention", "Retention", "Reproduction"], correct: 1 },
+  { id: 3, question: "SLT: Seeing a model rewarded increases imitation via...", options: ["Vicarious reinforcement", "Habituation", "Deindividuation"], correct: 0 },
+  { id: 4, question: "SLT: Identification increases when the model is...", options: ["Low-status and dissimilar", "High-status or similar", "Punished publicly"], correct: 1 },
+  { id: 5, question: "SLT: Self-efficacy primarily maps onto...", options: ["Attention", "Retention", "Reproduction"], correct: 2 }
+]
+
 export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [currentLesson, setCurrentLesson] = useState(1)
   const [isSidebarOpen, setSidebarOpen] = useState(true)
   const [isPresentation, setIsPresentation] = useState(false)
-  const slideCount = currentLesson === 1 ? 10 : currentLesson === 2 ? 9 : currentLesson === 3 ? 9 : currentLesson === 4 ? 8 : currentLesson === 5 ? 8 : 0
+  const slideCount = currentLesson === 1 ? 10 : currentLesson === 2 ? 9 : currentLesson === 3 ? 9 : currentLesson === 4 ? 9 : currentLesson === 5 ? 9 : currentLesson === 6 ? 9 : 0
 
   const nextSlide = useCallback(() => {
     if (currentSlide < slideCount - 1) setCurrentSlide(prev => prev + 1)
@@ -124,6 +142,110 @@ export default function App() {
     }
   }
 
+  const renderLesson6 = () => {
+    switch (currentSlide) {
+      case 0:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <div className="flex flex-col items-center justify-center h-full text-center">
+              <div className="relative mb-8">
+                <div className="absolute inset-0 bg-teal-500 blur-[100px] opacity-20 rounded-full animate-pulse"></div>
+                <div className="relative z-10 flex gap-4">
+                  <Users size={isPresentation ? 100 : 80} className="text-teal-400" />
+                  <Brain size={isPresentation ? 100 : 80} className="text-white" />
+                </div>
+              </div>
+              <h1 className={`font-bold text-white mb-4 tracking-widest uppercase ${isPresentation ? 'text-8xl' : 'text-6xl'}`}>
+                SOCIAL LEARNING <span className="text-teal-500">THEORY</span>
+              </h1>
+              <div className="h-1 w-64 bg-teal-900 my-6"></div>
+              <h2 className={`text-teal-600 text-xs tracking-[0.5em] uppercase mb-12 font-bold`}>Aggression Lesson 06</h2>
+              <button onClick={nextSlide} className={`bg-slate-900 border border-teal-500 text-teal-400 font-bold px-12 py-4 rounded-xl hover:bg-slate-800 transition-all ${isPresentation ? 'text-2xl' : 'text-lg'} uppercase shadow-lg`}>
+                Initialize Briefing
+              </button>
+            </div>
+          </Slide>
+        )
+
+      case 1:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 1: Activation" title="System Check" icon={Activity} time="05 MINS" isPresentation={isPresentation} />
+            <DoNowQuiz questions={lesson6DoNow} isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 2:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 2: Concept" title="Mediational Processes (ARRM)" icon={Brain} time="15 MINS" isPresentation={isPresentation} />
+            <ARRMFlowchart isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 3:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 2: Concept" title="Vicarious Learning & Identification" icon={Users} time="10 MINS" isPresentation={isPresentation} />
+            <VicariousLearningViz isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 4:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 2: Check" title="Understanding Check" icon={Brain} time="10 MINS" isPresentation={isPresentation} />
+            <Lesson6UnderstandingCheck isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 5:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 3: Simulation" title="Bobo Doll Lab" icon={Tv} time="15 MINS" isPresentation={isPresentation} />
+            <BoboLabSim isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 6:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 4: Evidence" title="Research Support" icon={Search} time="10 MINS" isPresentation={isPresentation} />
+            <Lesson6EvidenceGrid isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 7:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 5: Evaluation" title="Critique & Debates" icon={AlertTriangle} time="10 MINS" isPresentation={isPresentation} />
+            <Lesson6CritiqueGrid isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 8:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 6: Assessment" title="Essay Planning" icon={FileText} time="15 MINS" isPresentation={isPresentation} />
+            <div className={`grid grid-cols-1 md:grid-cols-2 h-full ${isPresentation ? 'gap-16' : 'gap-8'}`}>
+              <div className="bg-slate-900 border border-slate-800 shadow-2xl flex flex-col relative overflow-hidden p-8 justify-center rounded-xl">
+                <div className="flex items-center gap-3 mb-6 border-b border-slate-800 pb-4">
+                  <span className="bg-teal-700 text-white px-3 py-1 text-sm font-bold font-mono">16 MARKS</span>
+                  <h3 className="font-bold text-white text-xl font-mono">ASSESSMENT</h3>
+                </div>
+                <p className={`text-teal-400 font-mono italic leading-snug border-l-4 border-teal-600 pl-6 ${isPresentation ? 'text-4xl' : 'text-2xl'}`}>
+                  "Discuss Social Learning Theory as an explanation for aggression."
+                </p>
+              </div>
+              <Lesson6EssayPlan isPresentation={isPresentation} />
+            </div>
+          </Slide>
+        )
+
+      default:
+        return null
+    }
+  }
   const renderLesson1 = () => {
     switch (currentSlide) {
       case 0:
@@ -486,7 +608,7 @@ export default function App() {
         return (
           <Slide isPresentation={isPresentation}>
             <PhaseHeader phase="Phase 2: Check" title="Understanding Check" icon={Brain} time="10 MINS" isPresentation={isPresentation} />
-            <AFLQuiz isPresentation={isPresentation} />
+            <Lesson3UnderstandingCheck isPresentation={isPresentation} />
           </Slide>
         )
 
@@ -641,12 +763,20 @@ export default function App() {
       case 4:
         return (
           <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 2: Check" title="Understanding Check" icon={Brain} time="10 MINS" isPresentation={isPresentation} />
+            <Lesson4UnderstandingCheck isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 5:
+        return (
+          <Slide isPresentation={isPresentation}>
             <PhaseHeader phase="Phase 3: Simulation" title="Evolutionary Imperative" icon={Target} time="15 MINS" isPresentation={isPresentation} />
             <EvolutionaryImperativeSim isPresentation={isPresentation} />
           </Slide>
         )
 
-      case 5:
+      case 6:
         return (
           <Slide isPresentation={isPresentation}>
             <PhaseHeader phase="Phase 4: Evidence" title="Research Support" icon={Search} time="10 MINS" isPresentation={isPresentation} />
@@ -673,7 +803,7 @@ export default function App() {
           </Slide>
         )
 
-      case 6:
+      case 7:
         return (
           <Slide isPresentation={isPresentation}>
             <PhaseHeader phase="Phase 5: Evaluation" title="Critique & Debates" icon={AlertTriangle} time="10 MINS" isPresentation={isPresentation} />
@@ -700,7 +830,7 @@ export default function App() {
           </Slide>
         )
 
-      case 7:
+      case 8:
         return (
           <Slide isPresentation={isPresentation}>
             <PhaseHeader phase="Phase 6: Assessment" title="Essay Planning" icon={CheckCircle} time="15 MINS" isPresentation={isPresentation} />
@@ -778,12 +908,20 @@ export default function App() {
       case 4:
         return (
           <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 2: Check" title="Understanding Check" icon={Brain} time="10 MINS" isPresentation={isPresentation} />
+            <Lesson5UnderstandingCheck isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 5:
+        return (
+          <Slide isPresentation={isPresentation}>
             <PhaseHeader phase="Phase 3: Simulation" title="Impossible Task Study" icon={Target} time="15 MINS" isPresentation={isPresentation} />
             <ImpossibleTaskSim isPresentation={isPresentation} />
           </Slide>
         )
 
-      case 5:
+      case 6:
         return (
           <Slide isPresentation={isPresentation}>
             <PhaseHeader phase="Phase 4: Evidence" title="Research Grid" icon={Search} time="10 MINS" isPresentation={isPresentation} />
@@ -791,7 +929,7 @@ export default function App() {
           </Slide>
         )
 
-      case 6:
+      case 7:
         return (
           <Slide isPresentation={isPresentation}>
             <PhaseHeader phase="Phase 5: Evaluation" title="Critique & Reformulation" icon={AlertTriangle} time="10 MINS" isPresentation={isPresentation} />
@@ -799,7 +937,7 @@ export default function App() {
           </Slide>
         )
 
-      case 7:
+      case 8:
         return (
           <Slide isPresentation={isPresentation}>
             <PhaseHeader phase="Phase 6: Assessment" title="Essay Blueprint" icon={FileText} time="15 MINS" isPresentation={isPresentation} />
@@ -881,6 +1019,7 @@ export default function App() {
           {currentLesson === 3 && renderLesson3()}
           {currentLesson === 4 && renderLesson4()}
           {currentLesson === 5 && renderLesson5()}
+          {currentLesson === 6 && renderLesson6()}
         </main>
 
         {/* BOTTOM NAV */}
