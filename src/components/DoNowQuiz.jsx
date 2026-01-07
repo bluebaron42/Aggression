@@ -38,6 +38,12 @@ export default function DoNowQuiz({ questions, isPresentation }) {
               >
                 Analyze Results
               </button>
+              <button
+                onClick={() => setShowResults(true)}
+                className={`bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-300 hover:text-white font-bold rounded-xl w-full transition-all ${isPresentation ? 'px-12 py-6 text-2xl' : 'px-8 py-3 text-sm'}`}
+              >
+                Reveal All Answers
+              </button>
             </>
           ) : (
             <div className={`bg-green-900/20 border border-green-500 rounded-xl w-full text-center animate-fadeIn ${isPresentation ? 'p-10' : 'p-6'}`}>

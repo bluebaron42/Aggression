@@ -5,8 +5,9 @@ import {
   Shield, Target, AlertTriangle, Microscope, Dna, FileText, FlaskConical,
   TrendingUp, Power, Syringe, Ban, Check, RefreshCw, GitMerge, FileCode,
   Eye, Fish, Swords, BookOpen, Leaf, Flag, Skull, Scroll, MapPin, Baby,
-  Users, HelpCircle, Radio, Scan, Globe, Gauge, Tv
+  Users, HelpCircle, Radio, Scan, Globe, Gauge, Tv, Building, Lock
 } from 'lucide-react'
+
 
 // Import components
 import PhaseHeader from './components/PhaseHeader'
@@ -50,6 +51,18 @@ import Lesson6EvidenceGrid from './components/Lesson6EvidenceGrid'
 import Lesson6CritiqueGrid from './components/Lesson6CritiqueGrid'
 import Lesson6EssayPlan from './components/Lesson6EssayPlan'
 import Lesson6UnderstandingCheck from './components/Lesson6UnderstandingCheck'
+import CrowdVisualizer from './components/CrowdVisualizer'
+import SelfAwarenessMonitor from './components/SelfAwarenessMonitor'
+import MaskExperimentSim from './components/MaskExperimentSim'
+import Lesson7EvidenceGrid from './components/Lesson7EvidenceGrid'
+import Lesson7CritiqueGrid from './components/Lesson7CritiqueGrid'
+import Lesson7EssayPlan from './components/Lesson7EssayPlan'
+import ImportationProfiler from './components/ImportationProfiler'
+import DeprivationBreakdown from './components/DeprivationBreakdown'
+import ThreePrisonsSim from './components/ThreePrisonsSim'
+import Lesson8EvidenceGrid from './components/Lesson8EvidenceGrid'
+import Lesson8CritiqueGrid from './components/Lesson8CritiqueGrid'
+import Lesson8EssayPlan from './components/Lesson8EssayPlan'
 
 // Data
 const lessons = [
@@ -59,8 +72,8 @@ const lessons = [
   { id: 4, title: "04: Evolutionary Explanations", active: true, complete: false },
   { id: 5, title: "05: Social Psych I (Frustration)", active: true, complete: false },
   { id: 6, title: "06: Social Psych II (SLT)", active: true, complete: false },
-  { id: 7, title: "07: Social Psych III (De-individuation)", active: false, complete: false },
-  { id: 8, title: "08: Institutional Aggression", active: false, complete: false },
+  { id: 7, title: "07: Social Psych III (De-individuation)", active: true, complete: false },
+  { id: 8, title: "08: Institutional Aggression", active: true, complete: false },
   { id: 9, title: "09: Media Influences", active: false, complete: false },
 ]
 
@@ -109,7 +122,23 @@ const lesson6DoNow = [
   { id: 2, question: "SLT: Which process involves storing behavior in memory?", options: ["Attention", "Retention", "Reproduction"], correct: 1 },
   { id: 3, question: "SLT: Seeing a model rewarded increases imitation via...", options: ["Vicarious reinforcement", "Habituation", "Deindividuation"], correct: 0 },
   { id: 4, question: "SLT: Identification increases when the model is...", options: ["Low-status and dissimilar", "High-status or similar", "Punished publicly"], correct: 1 },
-  { id: 5, question: "SLT: Self-efficacy primarily maps onto...", options: ["Attention", "Retention", "Reproduction"], correct: 2 }
+  { id: 5, question: "Previous: Who conducted the Bobo Doll study?", options: ["Zimbardo", "Bandura", "Milgram"], correct: 1 }
+]
+
+const lesson7DoNow = [
+  { id: 1, question: "SLT: What process determines if a behavior is imitated based on consequences?", options: ["Vicarious Reinforcement", "Direct Reinforcement", "Classical Conditioning"], correct: 0 },
+  { id: 2, question: "SLT: The belief in one's ability to perform an action is...", options: ["Self-Esteem", "Self-Efficacy", "Self-Actualization"], correct: 1 },
+  { id: 3, question: "SLT: Which is NOT a mediational process?", options: ["Attention", "Retention", "Displacement"], correct: 2 },
+  { id: 4, question: "Frustration-Aggression: What triggers the aggressive drive?", options: ["Goal Blocking", "Observation", "Hormones"], correct: 0 },
+  { id: 5, question: "Previous: Who conducted the Bobo Doll study?", options: ["Zimbardo", "Bandura", "Milgram"], correct: 1 }
+]
+
+const lesson8DoNow = [
+  { id: 1, question: "De-individuation: Loss of private self-awareness causes...", options: ["Increased conformity", "Disinhibition", "Heightened morality"], correct: 1 },
+  { id: 2, question: "De-individuation: Which study found intimacy in the dark?", options: ["Zimbardo (1969)", "Gergen et al. (1973)", "Johnson & Downing"], correct: 1 },
+  { id: 3, question: "De-individuation: KKK hoods vs Nurse uniforms demonstrated...", options: ["Anonymity always causes aggression", "Social cues matter", "Darkness increases violence"], correct: 1 },
+  { id: 4, question: "SLT: Bandura's study used which doll?", options: ["Barbie", "Bobo", "Ken"], correct: 1 },
+  { id: 5, question: "Previous: Frustration-Aggression was proposed by...", options: ["Dollard et al.", "Berkowitz", "Freud"], correct: 0 }
 ]
 
 export default function App() {
@@ -117,7 +146,7 @@ export default function App() {
   const [currentLesson, setCurrentLesson] = useState(1)
   const [isSidebarOpen, setSidebarOpen] = useState(true)
   const [isPresentation, setIsPresentation] = useState(false)
-  const slideCount = currentLesson === 1 ? 10 : currentLesson === 2 ? 9 : currentLesson === 3 ? 9 : currentLesson === 4 ? 9 : currentLesson === 5 ? 9 : currentLesson === 6 ? 9 : 0
+  const slideCount = currentLesson === 1 ? 10 : currentLesson === 2 ? 9 : currentLesson === 3 ? 9 : currentLesson === 4 ? 9 : currentLesson === 5 ? 9 : currentLesson === 6 ? 9 : currentLesson === 7 ? 8 : currentLesson === 8 ? 8 : 0
 
   const nextSlide = useCallback(() => {
     if (currentSlide < slideCount - 1) setCurrentSlide(prev => prev + 1)
@@ -246,6 +275,195 @@ export default function App() {
         return null
     }
   }
+
+  const renderLesson7 = () => {
+    switch (currentSlide) {
+      case 0:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <div className="flex flex-col items-center justify-center h-full text-center">
+              <div className="relative mb-8">
+                <div className="absolute inset-0 bg-red-600 blur-[100px] opacity-20 rounded-full animate-pulse"></div>
+                <div className="relative z-10 flex gap-4">
+                  <Users size={isPresentation ? 100 : 80} className="text-red-500 animate-noise" />
+                  <Scan size={isPresentation ? 100 : 80} className="text-zinc-600" />
+                </div>
+              </div>
+              <h1 className={`font-glitch text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-zinc-500 mb-4 tracking-tight animate-chromatic ${isPresentation ? 'text-8xl' : 'text-6xl'}`}>DE-INDIVIDUATION</h1>
+              <div className="h-1 w-64 bg-zinc-700 my-6"></div>
+              <h2 className={`text-red-600 text-xs tracking-[0.5em] font-code uppercase mb-12`}>Aggression Lesson 07</h2>
+              <button onClick={nextSlide} className={`bg-black border-2 border-red-600 text-red-600 font-code font-bold px-12 py-4 hover:bg-red-900 hover:text-white transition-all uppercase ${isPresentation ? 'text-2xl' : 'text-lg'} shadow-[4px_4px_0px_#991b1b]`}>Enter The Crowd</button>
+            </div>
+          </Slide>
+        )
+
+      case 1:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 1: Activation" title="Identity Check" icon={Activity} time="05 MINS" isPresentation={isPresentation} />
+            <DoNowQuiz questions={lesson7DoNow} isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 2:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 2: Concept" title="The Crowd Mind" icon={Users} time="15 MINS" isPresentation={isPresentation} />
+            <CrowdVisualizer isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 3:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 2: Concept" title="Self-Awareness" icon={Eye} time="10 MINS" isPresentation={isPresentation} />
+            <SelfAwarenessMonitor isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 4:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 3: Simulation" title="The Mask Experiment" icon={Radio} time="15 MINS" isPresentation={isPresentation} />
+            <MaskExperimentSim isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 5:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 4: Evidence" title="Research Data" icon={Search} time="10 MINS" isPresentation={isPresentation} />
+            <Lesson7EvidenceGrid isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 6:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 5: Evaluation" title="Critique & Debates" icon={AlertTriangle} time="10 MINS" isPresentation={isPresentation} />
+            <Lesson7CritiqueGrid isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 7:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 6: Assessment" title="Data Log" icon={CheckCircle} time="15 MINS" isPresentation={isPresentation} />
+            <div className={`grid grid-cols-1 md:grid-cols-2 h-full ${isPresentation ? 'gap-16' : 'gap-8'}`}>
+              <div className="bg-black border border-red-800 shadow-2xl flex flex-col relative overflow-hidden p-8 justify-center">
+                <div className="flex items-center gap-3 mb-6 border-b border-red-800 pb-4">
+                  <span className="bg-red-700 text-black px-3 py-1 text-sm font-bold font-code">16 MARKS</span>
+                  <h3 className="font-bold text-white text-xl font-mono">QUERY</h3>
+                </div>
+                <p className={`text-red-500 font-mono italic leading-snug border-l-4 border-red-700 pl-6 ${isPresentation ? 'text-4xl' : 'text-2xl'}`}>
+                  "Discuss de-individuation as an explanation for aggression."
+                </p>
+              </div>
+              <Lesson7EssayPlan isPresentation={isPresentation} />
+            </div>
+          </Slide>
+        )
+
+      default:
+        return null
+    }
+  }
+
+  const renderLesson8 = () => {
+    switch (currentSlide) {
+      case 0:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <div className="flex flex-col items-center justify-center h-full text-center">
+              <div className="relative mb-8">
+                <div className="absolute inset-0 bg-orange-600 blur-[100px] opacity-20 rounded-full animate-pulse"></div>
+                <div className="relative z-10 flex gap-4">
+                  <Building size={isPresentation ? 100 : 80} className="text-orange-500" />
+                  <Shield size={isPresentation ? 100 : 80} className="text-zinc-600" />
+                </div>
+              </div>
+              <h1 className={`font-mono font-bold text-white mb-4 tracking-widest uppercase ${isPresentation ? 'text-8xl' : 'text-6xl'}`}>
+                INSTITUTIONAL <span className="text-orange-500">AGGRESSION</span>
+              </h1>
+              <div className="h-1 w-64 bg-zinc-700 my-6"></div>
+              <h2 className={`text-orange-600 text-xs tracking-[0.5em] uppercase mb-12 font-mono`}>Aggression Lesson 08</h2>
+              <button onClick={nextSlide} className={`bg-zinc-950 border-2 border-orange-600 text-orange-500 font-mono font-bold px-12 py-4 hover:bg-orange-900 hover:text-white transition-all uppercase ${isPresentation ? 'text-2xl' : 'text-lg'} shadow-[4px_4px_0px_#000]`}>Access Case Files</button>
+            </div>
+          </Slide>
+        )
+
+      case 1:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 1: Activation" title="Security Clearance" icon={Activity} time="05 MINS" isPresentation={isPresentation} />
+            <DoNowQuiz questions={lesson8DoNow} isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 2:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 2: Concept" title="Importation Model" icon={Users} time="15 MINS" isPresentation={isPresentation} />
+            <ImportationProfiler isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 3:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 2: Concept" title="Deprivation Model" icon={Lock} time="10 MINS" isPresentation={isPresentation} />
+            <DeprivationBreakdown isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 4:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 3: Simulation" title="Three Prisons" icon={Building} time="15 MINS" isPresentation={isPresentation} />
+            <ThreePrisonsSim isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 5:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 4: Evidence" title="Research Data" icon={Search} time="10 MINS" isPresentation={isPresentation} />
+            <Lesson8EvidenceGrid isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 6:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 5: Evaluation" title="Critical Analysis" icon={AlertTriangle} time="10 MINS" isPresentation={isPresentation} />
+            <Lesson8CritiqueGrid isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 7:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 6: Assessment" title="Case File Analysis" icon={CheckCircle} time="15 MINS" isPresentation={isPresentation} />
+            <div className={`grid grid-cols-1 md:grid-cols-2 h-full ${isPresentation ? 'gap-16' : 'gap-8'}`}>
+              <div className="bg-zinc-950 border-2 border-orange-700 shadow-2xl flex flex-col relative overflow-hidden p-8 justify-center">
+                <div className="flex items-center gap-3 mb-6 border-b-2 border-orange-700 pb-4">
+                  <span className="bg-orange-600 text-black px-3 py-1 text-sm font-bold font-mono">16 MARKS</span>
+                  <h3 className="font-bold text-white text-xl font-mono">ASSESSMENT</h3>
+                </div>
+                <p className={`text-orange-500 font-mono italic leading-snug border-l-4 border-orange-700 pl-6 ${isPresentation ? 'text-4xl' : 'text-2xl'}`}>
+                  "Discuss explanations of institutional aggression in the context of prisons."
+                </p>
+              </div>
+              <Lesson8EssayPlan isPresentation={isPresentation} />
+            </div>
+          </Slide>
+        )
+
+      default:
+        return null
+    }
+  }
+
   const renderLesson1 = () => {
     switch (currentSlide) {
       case 0:
@@ -1020,6 +1238,8 @@ export default function App() {
           {currentLesson === 4 && renderLesson4()}
           {currentLesson === 5 && renderLesson5()}
           {currentLesson === 6 && renderLesson6()}
+          {currentLesson === 7 && renderLesson7()}
+          {currentLesson === 8 && renderLesson8()}
         </main>
 
         {/* BOTTOM NAV */}
