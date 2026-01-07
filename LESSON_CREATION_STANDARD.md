@@ -2,18 +2,52 @@
 
 This document outlines the required steps when creating a new lesson for the Aggression teaching application.
 
+## ⭐ CRITICAL: Agent Prompt Location
+
+For creating new modules using an AI agent, see: **[COMPREHENSIVE_MODULE_CREATION_PROMPT.md](COMPREHENSIVE_MODULE_CREATION_PROMPT.md)**
+
+This prompt contains everything agents need to create complete, production-ready lessons following all standards below.
+
+---
+
 ## Required Components for Each Lesson
 
-### 1. **Lesson Structure (Slides)**
-Each lesson must follow this standardized structure:
+### 1. **Lesson Structure (Slides)** - Non-Negotiable Architecture
 
-- **Slide 0:** Title Slide
-- **Slide 1:** Do Now Quiz (Phase 1: Activation)
-- **Slides 2-3:** Concept Slides (Phase 2: Concept)
-- **Slide 4:** **Understanding Check (Phase 2: Check)** ⭐ **MANDATORY**
-- **Remaining Slides:** Simulation, Evidence, Evaluation, and Assessment phases
+Each lesson must follow this standardized structure (9-10 slides):
 
-### 2. **Understanding Check Component** ⭐ CRITICAL
+- **Slide 0:** Title Slide (Visual motivation + concept introduction)
+- **Slide 1:** Do Now Quiz (Phase 1: Activation - spaced retrieval from prior lessons)
+- **Slides 2-3:** Concept Slides (Phase 2: Concept - teach 2 major concepts with visuals)
+- **Slide 4:** **Understanding Check (Phase 2: Check)** ⭐ **MANDATORY - NEVER SKIP**
+- **Slide 5-6:** Simulation/Interactive Task (Phase 3: Application - active learning)
+- **Slide 7:** Evidence Grid (Phase 4: Evidence - research support with citations)
+- **Slide 8:** Critique/Evaluation (Phase 5: Evaluation - critical thinking)
+- **Slide 9:** Essay Plan (Phase 6: Assessment - synthesis & exam guidance)
+
+### 2. **Do Now Quiz Data** ⭐ CRITICAL FOR SPACED RETRIEVAL
+
+Add lesson-specific Do Now questions to `App.jsx`:
+
+**Purpose:** Activate prior knowledge through spaced retrieval. Students answer questions from 1-2 PREVIOUS lessons, not current lesson.
+
+**Rules:**
+- ✅ 5 questions total
+- ✅ Questions from Lesson [X-1] and Lesson [X-2] ONLY
+- ✅ NO new content (not testing current lesson concepts)
+- ✅ Mix question types and topics (don't ask same type 5 times)
+
+```javascript
+const lesson[X]DoNow = [
+  { id: 1, question: "Lesson [X-1] concept: ...", options: ["...", "...", "..."], correct: 0 },
+  { id: 2, question: "Lesson [X-1] research: ...", options: ["...", "...", "..."], correct: 1 },
+  { id: 3, question: "Lesson [X-2] definition: ...", options: ["...", "...", "..."], correct: 2 },
+  { id: 4, question: "Lesson [X-1] mechanism: ...", options: ["...", "...", "..."], correct: 0 },
+  { id: 5, question: "Lesson [X-2] integrated: ...", options: ["...", "...", "..."], correct: 1 },
+]
+```
+
+### 3. **Understanding Check Component** ⭐ MOST CRITICAL
 
 **Every lesson MUST have a lesson-specific understanding check component.**
 
@@ -21,25 +55,33 @@ Each lesson must follow this standardized structure:
 `/src/components/Lesson[X]UnderstandingCheck.jsx`
 
 #### Requirements
-- **5 questions** covering the main concepts from that specific lesson
-- Mix of **scenario-based** and **matching** question types
-- **Detailed feedback** for each answer that reinforces learning
-- Color-coded to match the lesson theme
-- Include educational explanations in the feedback
+- **5 questions** covering ONLY the main concepts from slides 2-3 in THIS lesson
+- **Mix:** 3x Scenario-based + 2x Matching question types
+- **Detailed feedback** for each answer (2-3 sentences, educational value)
+- **Answer randomization:** ALL options randomized using `useMemo` + `shuffleArray()` ⭐ CRITICAL
+- **Color-coded** to match the lesson theme
+- **Presentation mode support:** Accept `isPresentation` prop for larger fonts
+
+#### Why Answer Randomization is Critical
+- Prevents students from gaming the system by memorizing answer positions
+- Students must UNDERSTAND content, not just recognize correct position
+- Without randomization, assessment validity is compromised
+- Implement using `useMemo` to shuffle on every component mount
 
 #### Question Design Guidelines
 ✅ **DO:**
-- Test understanding of key concepts taught in slides 2-3
-- Include research studies covered in the lesson
-- Test critical evaluation points
-- Use real scenarios that require application of knowledge
-- Provide detailed explanations in feedback
+- Test UNDERSTANDING of concepts taught in slides 2-3 ONLY
+- Include research studies covered in THIS lesson
+- Use realistic scenarios requiring application of knowledge
+- Provide detailed explanations in feedback linking back to research/concepts
+- Randomize answers using the shuffleArray pattern
 
 ❌ **DON'T:**
-- Reuse generic questions from other lessons
-- Test content not yet covered in the lesson
-- Use simple factual recall without understanding
-- Copy questions from other lessons
+- Copy/reuse questions from other lessons
+- Test content not yet covered in this lesson
+- Use simple factual recall without requiring understanding
+- Include hardcoded answer positions—ALWAYS randomize
+- Test evaluation/critique (that's for later slides)
 
 #### Example Template Structure
 ```jsx
@@ -115,16 +157,6 @@ export default function Lesson[X]UnderstandingCheck({ isPresentation }) {
 - This prevents students from gaming the system by memorizing answer positions
 - Shuffle both scenario question options AND matching question item options
 
-### 3. **Do Now Quiz Data**
-Add lesson-specific Do Now questions to `App.jsx`:
-
-```javascript
-const lesson[X]DoNow = [
-  { id: 1, question: "...", options: ["...", "...", "..."], correct: 0 },
-  // ... 4-5 questions reviewing previous lessons
-]
-```
-
 ### 4. **App.jsx Integration**
 
 #### Import Components
@@ -189,14 +221,20 @@ Before considering a lesson complete, verify:
 - ✅ No syntax errors in App.jsx
 - ✅ Lesson marked as active in lessons array
 
-## Current Status
+## For AI Agents Creating New Modules
 
-### Lessons 1-5: ✅ Complete (All with randomized answers)
-- **Lesson 1:** AFLQuiz (neural/hormonal) ✅ Randomized
-- **Lesson 2:** DataVerificationTask (custom genetic verification)
-- **Lesson 3:** Lesson3UnderstandingCheck ✅ Randomized
-- **Lesson 4:** Lesson4UnderstandingCheck ✅ Randomized
-- **Lesson 5:** Lesson5UnderstandingCheck ✅ Randomized
+When using an AI agent to create a new module, provide them with the **[COMPREHENSIVE_MODULE_CREATION_PROMPT.md](COMPREHENSIVE_MODULE_CREATION_PROMPT.md)**.
+
+This document contains:
+- Complete architectural overview
+- All critical requirements with justification
+- Full code examples and templates
+- Step-by-step implementation workflow
+- Validation checklist
+- Color theme palette
+- Understanding Check template with randomization pattern
+
+The agent should use it as their authoritative reference throughout the entire implementation process.
 
 ### Lessons 6-9: ⏳ Not Yet Created
 When creating these lessons, **remember to include the Understanding Check component from the start.**
