@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
-import { AlertCircle, CheckCircle, Lightbulb } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
+import { AlertCircle, CheckCircle, Lightbulb, ChevronLeft, ChevronRight, Eye } from 'lucide-react'
 
 export default function Lesson9CritiqueGrid({ isPresentation }) {
-  const [expandedSection, setExpandedSection] = useState(null)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [revealDetails, setRevealDetails] = useState(false)
+  const [isFading, setIsFading] = useState(false)
 
   const critiques = [
     {
@@ -82,76 +84,118 @@ export default function Lesson9CritiqueGrid({ isPresentation }) {
     }
   ]
 
+  const total = critiques.length
+
+  const goPrev = () => {
+    setIsFading(true)
+    setTimeout(() => {
+      setCurrentIndex((prev) => (prev - 1 + total) % total)
+      setRevealDetails(false)
+      setIsFading(false)
+    }, 200)
+  }
+
+  const goNext = () => {
+    setIsFading(true)
+    setTimeout(() => {
+      setCurrentIndex((prev) => (prev + 1) % total)
+      setRevealDetails(false)
+      setIsFading(false)
+    }, 200)
+  }
+
+  const current = critiques[currentIndex]
+  const IconComponent = current.icon
+
   return (
     <div className={`flex flex-col gap-4 ${isPresentation ? 'p-8' : 'p-6'}`}>
-      <div className="flex items-center gap-3 mb-4">
-        <AlertCircle className="text-blue-500" size={isPresentation ? 40 : 32} />
-        <h3 className={`font-bold text-blue-100 ${isPresentation ? 'text-2xl' : 'text-lg'}`}>
-          Critical Evaluation: Weaknesses in Media-Aggression Research
-        </h3>
+      {/* Header */}
+      <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center gap-3">
+          <AlertCircle className="text-blue-500" size={isPresentation ? 40 : 32} />
+          <h3 className={`font-bold text-blue-100 ${isPresentation ? 'text-2xl' : 'text-lg'}`}>
+            Critical Evaluation: Click-through Card Deck
+          </h3>
+        </div>
+        <div className={`text-blue-400 font-mono ${isPresentation ? 'text-lg' : 'text-sm'}`}>
+          {currentIndex + 1}/{total}
+        </div>
       </div>
 
-      <div className="space-y-3">
-        {critiques.map((critique) => {
-          const IconComponent = critique.icon
-          const isExpanded = expandedSection === critique.id
-
-          return (
-            <div key={critique.id} className={`${critique.bgColor} rounded-lg border-2 overflow-hidden`}>
-              <button
-                onClick={() => setExpandedSection(isExpanded ? null : critique.id)}
-                className={`w-full p-4 flex items-center justify-between hover:opacity-80 transition-opacity`}
-              >
-                <div className="flex items-center gap-3 text-left">
-                  <IconComponent className={`${critique.color} flex-shrink-0`} size={24} />
-                  <h4 className={`font-bold text-blue-100 ${isPresentation ? 'text-lg' : 'text-base'}`}>
-                    {critique.title}
-                  </h4>
-                </div>
-                <span className={`text-blue-400 font-bold ${isPresentation ? 'text-2xl' : 'text-xl'}`}>
-                  {isExpanded ? '−' : '+'}
-                </span>
-              </button>
-
-              {isExpanded && (
-                <div className="bg-blue-950/30 border-t-2 border-blue-600 px-4 py-4 space-y-3">
-                  <ul className="space-y-2">
-                    {critique.points.map((point, idx) => (
-                      <li
-                        key={idx}
-                        className={`flex gap-3 text-blue-200 ${isPresentation ? 'text-base' : 'text-sm'}`}
-                      >
-                        <span className="text-blue-400 font-bold flex-shrink-0">•</span>
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="bg-blue-900/50 rounded p-3 border-l-4 border-blue-400 mt-4">
-                    <p className={`text-blue-300 font-semibold mb-2 flex items-center gap-2 ${isPresentation ? 'text-base' : 'text-sm'}`}>
-                      <Lightbulb size={16} className="text-blue-400" />
-                      Critical Implication:
-                    </p>
-                    <p className={`text-blue-100 ${isPresentation ? 'text-base' : 'text-sm'}`}>
-                      {critique.implication}
-                    </p>
-                  </div>
-                </div>
-              )}
+      {/* Card Deck */}
+      <div className="relative">
+        <div
+          className={`${current.bgColor} border-2 rounded-xl p-5 shadow-xl transition-all duration-200 ${isFading ? 'opacity-0' : 'opacity-100'} `}
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <IconComponent className={`${current.color} flex-shrink-0`} size={isPresentation ? 28 : 24} />
+              <h4 className={`font-bold text-blue-100 ${isPresentation ? 'text-xl' : 'text-lg'}`}>
+                {current.title}
+              </h4>
             </div>
-          )
-        })}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={goPrev}
+                className={`px-3 py-2 bg-blue-800 text-blue-200 rounded hover:bg-blue-700 transition-all ${isPresentation ? 'text-lg' : 'text-sm'}`}
+                aria-label="Previous card"
+              >
+                <ChevronLeft size={18} />
+              </button>
+              <button
+                onClick={goNext}
+                className={`px-3 py-2 bg-blue-800 text-blue-200 rounded hover:bg-blue-700 transition-all ${isPresentation ? 'text-lg' : 'text-sm'}`}
+                aria-label="Next card"
+              >
+                <ChevronRight size={18} />
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-4">
+            <button
+              onClick={() => setRevealDetails(!revealDetails)}
+              className={`inline-flex items-center gap-2 px-4 py-2 bg-blue-700 text-white rounded font-bold hover:bg-blue-600 transition-all ${isPresentation ? 'text-lg' : 'text-sm'}`}
+            >
+              <Eye size={18} /> {revealDetails ? 'Hide details' : 'Reveal details'}
+            </button>
+
+            {revealDetails && (
+              <div className="mt-4 space-y-3">
+                <ul className="space-y-2">
+                  {current.points.map((point, idx) => (
+                    <li key={idx} className={`flex gap-3 text-blue-200 ${isPresentation ? 'text-base' : 'text-sm'}`}>
+                      <span className="text-blue-400 font-bold flex-shrink-0">•</span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="bg-blue-900/50 rounded p-3 border-l-4 border-blue-400">
+                  <p className={`text-blue-300 font-semibold mb-2 flex items-center gap-2 ${isPresentation ? 'text-base' : 'text-sm'}`}>
+                    <Lightbulb size={16} className="text-blue-400" />
+                    Critical Implication
+                  </p>
+                  <p className={`text-blue-100 ${isPresentation ? 'text-base' : 'text-sm'}`}>{current.implication}</p>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Subtle stacked preview (disabled, display only) */}
+        <div className="absolute top-2 right-2 opacity-30 pointer-events-none">
+          <div className="w-20 h-12 bg-blue-900/30 border border-blue-700 rounded rotate-6" />
+          <div className="w-20 h-12 bg-blue-900/20 border border-blue-700 rounded -mt-2 rotate-3" />
+        </div>
       </div>
 
-      <div className="bg-blue-900/40 border-2 border-blue-500 rounded-lg p-4 mt-4">
+      <div className="bg-blue-900/40 border-2 border-blue-500 rounded-lg p-4 mt-2">
         <div className="flex items-start gap-3">
           <CheckCircle className="text-green-400 flex-shrink-0 mt-1" size={20} />
           <div>
-            <p className={`text-blue-100 font-bold mb-2 ${isPresentation ? 'text-base' : 'text-sm'}`}>
-              Balanced Conclusion:
-            </p>
+            <p className={`text-blue-100 font-bold mb-2 ${isPresentation ? 'text-base' : 'text-sm'}`}>Balanced Conclusion</p>
             <p className={`text-blue-200 leading-relaxed ${isPresentation ? 'text-base' : 'text-sm'}`}>
-              Media likely has SOME influence on aggression, particularly in priming hostile thoughts and reducing empathy. However, the effect is WEAK and INCONSISTENT, affected by individual differences, family factors, and peer influences. The gap between lab findings (effect size ~0.24) and real-world patterns (decreasing violence during high media consumption) suggests media is ONE MINOR factor, not a major cause of serious aggression.
+              Media likely has SOME influence (priming, reduced empathy) but effects are WEAK/INCONSISTENT and moderated by individual differences and context. Real-world patterns (e.g., decreasing violence amid rising media use) suggest media is a MINOR factor among many.
             </p>
           </div>
         </div>

@@ -1,10 +1,11 @@
 import React, { useState, useMemo } from 'react'
-import { CheckCircle, AlertCircle, Brain } from 'lucide-react'
+import { CheckCircle, AlertCircle, Brain, Eye } from 'lucide-react'
 
 export default function Lesson9UnderstandingCheck({ isPresentation }) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState({})
   const [showFeedback, setShowFeedback] = useState(false)
+  const [showExplanation, setShowExplanation] = useState({})
 
   // Shuffle function to randomize answer order
   const shuffleArray = (array) => {
@@ -29,7 +30,7 @@ export default function Lesson9UnderstandingCheck({ isPresentation }) {
           { text: 'Media has no measurable effect on aggressive behaviour', correct: false },
           { text: 'Media influences only affect individuals with pre-existing violent tendencies', correct: false }
         ],
-        feedback: 'Correct! The specification states that media influences on aggression include the effects of TV, film, and computer games. This broad definition acknowledges multiple media channels and their potential impact on aggressive behavior.'
+        feedback: 'Spec explicitly includes TV, film, and games — a broad scope of media channels.'
       },
       {
         id: 2,
@@ -41,7 +42,7 @@ export default function Lesson9UnderstandingCheck({ isPresentation }) {
           { text: 'Only criminals watch violent television', correct: false },
           { text: 'TV violence is too obvious to study scientifically', correct: false }
         ],
-        feedback: 'Excellent! The research shows that while some correlation exists, the effect is far from inevitable—most people who watch violent TV remain non-aggressive. This challenges simple cause-and-effect claims and highlights the importance of other mediating factors (individual differences, environment, family factors).'
+        feedback: 'Most viewers stay non-aggressive. Weak correlations challenge simple cause → effect claims.'
       },
       {
         id: 3,
@@ -53,7 +54,7 @@ export default function Lesson9UnderstandingCheck({ isPresentation }) {
           { text: 'Computer games are more ACTIVE and require player engagement, potentially having stronger effects than passive viewing', correct: true },
           { text: 'Computer games only affect professional gamers', correct: false }
         ],
-        feedback: 'Perfect! Computer games are fundamentally different because they are ACTIVE media—the player is directly involved in the violent acts, not just observing them. This active participation, combined with immediate rewards for violent behavior, may make games more influential than passive TV viewing. Research suggests the interactive nature of games could have a more direct link to aggression than passive film viewing.'
+        feedback: 'Games are active: players enact violence and earn rewards. That interactivity can amplify short-term effects vs passive TV.'
       },
       {
         id: 4,
@@ -63,7 +64,7 @@ export default function Lesson9UnderstandingCheck({ isPresentation }) {
           { label: 'Correlational Studies', options: ['Cannot prove causation; aggressive people may select violent media (reverse causality)', 'Cannot generalize to real-world aggression; artificial lab setting lacks validity', 'Cannot represent long-term effects; snapshot only'], correct: 0 },
           { label: 'Experimental Studies', options: ['Ecological validity issues—laboratory aggression (button pressing) may not reflect real violence', 'Sample bias—only volunteers who agree to be studied', 'Cannot study ethical scenarios involving actual harm'], correct: 0 }
         ],
-        feedback: 'These are the core methodological tensions in media-aggression research. Correlational studies cannot prove causation and may suffer from reverse causality (aggressive individuals selecting violent content). Experimental studies have excellent internal validity but poor ecological validity—button-pressing in a lab differs greatly from real aggressive behavior. Both approaches have different limitations that researchers must acknowledge.'
+        feedback: 'Core trade-offs: correlation = no causation, experiment = lab validity only. Know which weakness you are carrying.'
       },
       {
         id: 5,
@@ -75,7 +76,7 @@ export default function Lesson9UnderstandingCheck({ isPresentation }) {
           { text: 'Aggression is too obvious to require a formal definition', correct: false },
           { text: 'The specification requires only one specific definition of aggression', correct: false }
         ],
-        feedback: 'Excellent critical thinking! A major issue in media-aggression research is the INCONSISTENCY in how aggression is defined and measured across studies. Some use button-pressing (low ecological validity), others use teacher ratings (subjective), others use self-report (prone to social desirability). When studies use different operational definitions, it becomes very difficult to synthesize findings or claim a consistent effect. This variation reduces the validity of overall conclusions.'
+        feedback: 'Operational definitions vary (buttons, ratings, self-report). Inconsistent measures weaken overall conclusions.'
       }
     ]
 
@@ -99,12 +100,14 @@ export default function Lesson9UnderstandingCheck({ isPresentation }) {
   const handleAnswer = (isCorrect) => {
     setAnswers({ ...answers, [currentQuestion]: isCorrect })
     setShowFeedback(true)
+    setShowExplanation(prev => ({ ...prev, [currentQuestion]: false }))
   }
 
   const nextQuestion = () => {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1)
       setShowFeedback(false)
+      setShowExplanation(prev => ({ ...prev, [currentQuestion + 1]: false }))
     }
   }
 
@@ -112,6 +115,7 @@ export default function Lesson9UnderstandingCheck({ isPresentation }) {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1)
       setShowFeedback(false)
+      setShowExplanation(prev => ({ ...prev, [currentQuestion - 1]: false }))
     }
   }
 
@@ -119,6 +123,7 @@ export default function Lesson9UnderstandingCheck({ isPresentation }) {
     setCurrentQuestion(0)
     setAnswers({})
     setShowFeedback(false)
+    setShowExplanation({})
   }
 
   const currentQ = questions[currentQuestion]
@@ -168,10 +173,25 @@ export default function Lesson9UnderstandingCheck({ isPresentation }) {
         </div>
 
         {showFeedback && (
-          <div className="bg-blue-800/70 border-l-4 border-blue-500 p-4 rounded">
-            <p className={`text-blue-100 leading-relaxed ${isPresentation ? 'text-lg' : 'text-sm'}`}>
-              {currentQ.feedback}
-            </p>
+          <div className="bg-blue-800/70 border-l-4 border-blue-500 p-4 rounded space-y-3">
+            <div className="flex items-center gap-2 text-blue-100">
+              <CheckCircle size={18} className="text-green-400" />
+              <span className={`font-semibold ${isPresentation ? 'text-lg' : 'text-sm'}`}>
+                {answers[currentQuestion] ? 'Correct choice locked in' : 'Review: best answer highlighted in green'}
+              </span>
+            </div>
+            <button
+              onClick={() => setShowExplanation(prev => ({ ...prev, [currentQuestion]: !prev[currentQuestion] }))}
+              className={`inline-flex items-center gap-2 px-4 py-2 bg-blue-700 text-white rounded font-bold hover:bg-blue-600 transition-all ${isPresentation ? 'text-lg' : 'text-sm'}`}
+            >
+              <Eye size={18} /> {showExplanation[currentQuestion] ? 'Hide explanation' : 'Reveal explanation'}
+            </button>
+
+            {showExplanation[currentQuestion] && (
+              <p className={`text-blue-100 leading-relaxed ${isPresentation ? 'text-lg' : 'text-sm'}`}>
+                {currentQ.feedback}
+              </p>
+            )}
           </div>
         )}
 
@@ -265,10 +285,25 @@ export default function Lesson9UnderstandingCheck({ isPresentation }) {
       </div>
 
       {showFeedback && (
-        <div className="bg-blue-800/70 border-l-4 border-blue-500 p-4 rounded">
-          <p className={`text-blue-100 leading-relaxed ${isPresentation ? 'text-lg' : 'text-sm'}`}>
-            {currentQ.feedback}
-          </p>
+        <div className="bg-blue-800/70 border-l-4 border-blue-500 p-4 rounded space-y-3">
+          <div className="flex items-center gap-2 text-blue-100">
+            <CheckCircle size={18} className="text-green-400" />
+            <span className={`font-semibold ${isPresentation ? 'text-lg' : 'text-sm'}`}>
+              {answers[currentQuestion] ? 'Great match locked in' : 'Best matches highlighted in green'}
+            </span>
+          </div>
+          <button
+            onClick={() => setShowExplanation(prev => ({ ...prev, [currentQuestion]: !prev[currentQuestion] }))}
+            className={`inline-flex items-center gap-2 px-4 py-2 bg-blue-700 text-white rounded font-bold hover:bg-blue-600 transition-all ${isPresentation ? 'text-lg' : 'text-sm'}`}
+          >
+            <Eye size={18} /> {showExplanation[currentQuestion] ? 'Hide explanation' : 'Reveal explanation'}
+          </button>
+
+          {showExplanation[currentQuestion] && (
+            <p className={`text-blue-100 leading-relaxed ${isPresentation ? 'text-lg' : 'text-sm'}`}>
+              {currentQ.feedback}
+            </p>
+          )}
         </div>
       )}
 

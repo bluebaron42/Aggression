@@ -198,6 +198,16 @@ With this documentation system, agents can:
 
 ---
 
+## 🔄 NEW POLISH (Jan 2026)
+
+- Lesson 9 interactive sim upgraded: animated data capture, live counters, presentation-safe sizing.
+- Understanding Check answers now stay hidden until learners tap **Reveal explanation** (condensed feedback text).
+- Evidence Grid uses compact summaries with tap-to-expand details for readability in presentation mode.
+- Presentation mode sizing audited across Lesson 9 components; buttons/icons/text scale cleanly for projection.
+ - Essay Plan slide streamlined: question at top; AO1/AO3/hints hidden behind click-to-reveal panels; reduced text clutter.
+ - Critical Analysis slide redesigned as an interactive card deck with revealable details and next/prev navigation, with smooth fade animations.
+
+
 ## 🎓 PEDAGOGICAL FOUNDATION
 
 All documents are grounded in these principles:

@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import { BookOpen, CheckCircle, AlertCircle } from 'lucide-react'
+import { BookOpen, CheckCircle, AlertCircle, Eye } from 'lucide-react'
 
 export default function Lesson9EssayPlan({ isPresentation }) {
-  const [selectedAO, setSelectedAO] = useState('AO1')
+  const [openAO1, setOpenAO1] = useState(false)
+  const [openAO3, setOpenAO3] = useState(false)
+  const [openHints, setOpenHints] = useState(false)
 
   const essayPlans = {
     AO1: {
@@ -61,10 +63,12 @@ export default function Lesson9EssayPlan({ isPresentation }) {
     }
   }
 
-  const currentPlan = essayPlans[selectedAO]
+  const currentAO1 = essayPlans.AO1
+  const currentAO3 = essayPlans.AO3
 
   return (
     <div className={`flex flex-col gap-6 h-full ${isPresentation ? 'p-8' : 'p-6'}`}>
+      {/* Header */}
       <div className="flex items-center gap-3 mb-2">
         <BookOpen className="text-blue-500" size={isPresentation ? 40 : 32} />
         <h3 className={`font-bold text-blue-100 ${isPresentation ? 'text-2xl' : 'text-lg'}`}>
@@ -72,63 +76,96 @@ export default function Lesson9EssayPlan({ isPresentation }) {
         </h3>
       </div>
 
-      <div className="flex gap-3">
-        {Object.keys(essayPlans).map((ao) => (
-          <button
-            key={ao}
-            onClick={() => setSelectedAO(ao)}
-            className={`px-6 py-3 rounded-lg font-bold transition-all ${
-              selectedAO === ao
-                ? 'bg-blue-600 text-white shadow-lg'
-                : 'bg-blue-800 text-blue-200 hover:bg-blue-700'
-            } ${isPresentation ? 'text-lg' : 'text-base'}`}
-          >
-            {ao}
-          </button>
-        ))}
-      </div>
-
-      <div className={`flex-grow overflow-y-auto ${isPresentation ? 'pr-4' : ''}`}>
-        <div className="bg-blue-900/30 border-2 border-blue-600 rounded-lg p-4 mb-4">
-          <p className={`text-blue-100 font-bold ${isPresentation ? 'text-lg' : 'text-base'}`}>
-            {currentPlan.title}
-          </p>
-        </div>
-
-        <div className="space-y-4">
-          {currentPlan.content.map((item, idx) => (
-            <div
-              key={idx}
-              className="bg-blue-950/50 border-2 border-blue-700 rounded-lg p-4 hover:border-blue-500 transition-all"
-            >
-              <div className="flex items-start gap-3 mb-2">
-                <CheckCircle className="text-blue-400 flex-shrink-0 mt-1" size={20} />
-                <h4 className={`font-bold text-blue-200 ${isPresentation ? 'text-base' : 'text-sm'}`}>
-                  {idx + 1}. {item.point}
-                </h4>
-              </div>
-              <p className={`text-blue-100 ml-8 leading-relaxed ${isPresentation ? 'text-base' : 'text-sm'}`}>
-                {item.detail}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        <div className="bg-blue-900/50 border-2 border-blue-500 rounded-lg p-4 mt-6">
-          <p className={`text-blue-300 font-bold mb-3 flex items-center gap-2 ${isPresentation ? 'text-base' : 'text-sm'}`}>
-            <AlertCircle className="text-blue-400" size={20} />
-            Key Hints:
-          </p>
-          <div className={`text-blue-100 whitespace-pre-wrap leading-relaxed ${isPresentation ? 'text-base' : 'text-sm'}`}>
-            {currentPlan.hints}
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-blue-900/60 border-2 border-blue-500 rounded-lg p-4 mt-4">
-        <p className={`text-blue-100 font-semibold leading-relaxed ${isPresentation ? 'text-base' : 'text-sm'}`}>
-          <span className="text-blue-300">Essay Question:</span> "Discuss the effects of media on aggressive behaviour." Ensure you evaluate the STRENGTH of evidence, consider alternative explanations, and avoid claiming media is a major cause when research suggests it's one minor factor among many.
+      {/* Question at top */}
+      <div className="bg-blue-900/60 border-2 border-blue-500 rounded-lg p-4">
+        <p className={`text-blue-100 font-semibold leading-relaxed ${isPresentation ? 'text-xl' : 'text-base'}`}>
+          <span className="text-blue-300">Essay Question:</span> Discuss the effects of media on aggressive behaviour.
         </p>
+        <p className={`text-blue-300 mt-2 ${isPresentation ? 'text-lg' : 'text-sm'}`}>
+          Include: strength of evidence, alternative explanations, and avoid overstating causation.
+        </p>
+      </div>
+
+      {/* Reveal panels */}
+      <div className={`flex-grow overflow-y-auto ${isPresentation ? 'pr-2' : ''}`}>
+        {/* AO1 Panel */}
+        <div className="bg-blue-900/30 border-2 border-blue-600 rounded-lg">
+          <button
+            onClick={() => setOpenAO1(!openAO1)}
+            className={`w-full px-4 py-3 flex items-center justify-between text-left font-bold ${isPresentation ? 'text-lg' : 'text-base'} text-blue-100 hover:bg-blue-900/50 transition-all`}
+          >
+            <span>{currentAO1.title}</span>
+            <span className="flex items-center gap-2 text-blue-300">
+              <Eye size={18} /> {openAO1 ? 'Hide' : 'Reveal'}
+            </span>
+          </button>
+          {openAO1 && (
+            <div className="p-4 space-y-3">
+              {currentAO1.content.map((item, idx) => (
+                <div key={idx} className="bg-blue-950/50 border-2 border-blue-700 rounded-lg p-3">
+                  <div className="flex items-start gap-3 mb-1">
+                    <CheckCircle className="text-blue-400 flex-shrink-0 mt-1" size={20} />
+                    <h4 className={`${isPresentation ? 'text-base' : 'text-sm'} font-bold text-blue-200`}>{item.point}</h4>
+                  </div>
+                  <p className={`text-blue-100 ml-8 ${isPresentation ? 'text-base' : 'text-sm'}`}>
+                    {item.detail}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* AO3 Panel */}
+        <div className="bg-blue-900/30 border-2 border-blue-600 rounded-lg mt-4">
+          <button
+            onClick={() => setOpenAO3(!openAO3)}
+            className={`w-full px-4 py-3 flex items-center justify-between text-left font-bold ${isPresentation ? 'text-lg' : 'text-base'} text-blue-100 hover:bg-blue-900/50 transition-all`}
+          >
+            <span>{currentAO3.title}</span>
+            <span className="flex items-center gap-2 text-blue-300">
+              <Eye size={18} /> {openAO3 ? 'Hide' : 'Reveal'}
+            </span>
+          </button>
+          {openAO3 && (
+            <div className="p-4 space-y-3">
+              {currentAO3.content.map((item, idx) => (
+                <div key={idx} className="bg-blue-950/50 border-2 border-blue-700 rounded-lg p-3">
+                  <div className="flex items-start gap-3 mb-1">
+                    <CheckCircle className="text-blue-400 flex-shrink-0 mt-1" size={20} />
+                    <h4 className={`${isPresentation ? 'text-base' : 'text-sm'} font-bold text-blue-200`}>{item.point}</h4>
+                  </div>
+                  <p className={`text-blue-100 ml-8 ${isPresentation ? 'text-base' : 'text-sm'}`}>
+                    {item.detail}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Hints Panel */}
+        <div className="bg-blue-900/30 border-2 border-blue-600 rounded-lg mt-4">
+          <button
+            onClick={() => setOpenHints(!openHints)}
+            className={`w-full px-4 py-3 flex items-center justify-between text-left font-bold ${isPresentation ? 'text-lg' : 'text-base'} text-blue-100 hover:bg-blue-900/50 transition-all`}
+          >
+            <span className="flex items-center gap-2">
+              <AlertCircle className="text-blue-400" size={20} />
+              Key Hints
+            </span>
+            <span className="flex items-center gap-2 text-blue-300">
+              <Eye size={18} /> {openHints ? 'Hide' : 'Reveal'}
+            </span>
+          </button>
+          {openHints && (
+            <div className="p-4">
+              <div className={`text-blue-100 whitespace-pre-wrap leading-relaxed ${isPresentation ? 'text-base' : 'text-sm'}`}>
+                {currentAO3.hints}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
