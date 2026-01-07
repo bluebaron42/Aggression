@@ -5,7 +5,7 @@ import {
   Shield, Target, AlertTriangle, Microscope, Dna, FileText, FlaskConical,
   TrendingUp, Power, Syringe, Ban, Check, RefreshCw, GitMerge, FileCode,
   Eye, Fish, Swords, BookOpen, Leaf, Flag, Skull, Scroll, MapPin, Baby,
-  Users, HelpCircle, Radio, Scan, Globe, Gauge, Tv, Building, Lock
+  Users, HelpCircle, Radio, Scan, Globe, Gauge, Tv, Building, Lock, Gamepad2
 } from 'lucide-react'
 
 
@@ -63,6 +63,13 @@ import ThreePrisonsSim from './components/ThreePrisonsSim'
 import Lesson8EvidenceGrid from './components/Lesson8EvidenceGrid'
 import Lesson8CritiqueGrid from './components/Lesson8CritiqueGrid'
 import Lesson8EssayPlan from './components/Lesson8EssayPlan'
+import Lesson8UnderstandingCheck from './components/Lesson8UnderstandingCheck'
+import Lesson9UnderstandingCheck from './components/Lesson9UnderstandingCheck'
+import Lesson9EvidenceGrid from './components/Lesson9EvidenceGrid'
+import Lesson9CritiqueGrid from './components/Lesson9CritiqueGrid'
+import Lesson9EssayPlan from './components/Lesson9EssayPlan'
+import MediaEffectVisualizer from './components/MediaEffectVisualizer'
+import MediaLabSim from './components/MediaLabSim'
 
 // Data
 const lessons = [
@@ -74,7 +81,7 @@ const lessons = [
   { id: 6, title: "06: Social Psych II (SLT)", active: true, complete: false },
   { id: 7, title: "07: Social Psych III (De-individuation)", active: true, complete: false },
   { id: 8, title: "08: Institutional Aggression", active: true, complete: false },
-  { id: 9, title: "09: Media Influences", active: false, complete: false },
+  { id: 9, title: "09: Media Influences", active: true, complete: false },
 ]
 
 const lesson1DoNow = [
@@ -141,12 +148,20 @@ const lesson8DoNow = [
   { id: 5, question: "Previous: Frustration-Aggression was proposed by...", options: ["Dollard et al.", "Berkowitz", "Freud"], correct: 0 }
 ]
 
+const lesson9DoNow = [
+  { id: 1, question: "Institutional: The Importation Model suggests aggression comes from...", options: ["Prison environment", "Individual inmates' characteristics", "Officer training"], correct: 1 },
+  { id: 2, question: "Institutional: Sykes' deprivations include loss of what?", options: ["Money only", "Multiple needs (autonomy, security, goods, liberty, contact)", "Just freedom"], correct: 1 },
+  { id: 3, question: "De-individuation: Anonymity in groups leads to...", options: ["Better decision-making", "Disinhibition & increased aggression", "Cooperation"], correct: 1 },
+  { id: 4, question: "SLT: Observation of models causes learning via...", options: ["Classical conditioning", "Operant conditioning", "Vicarious reinforcement"], correct: 2 },
+  { id: 5, question: "Frustration-Aggression: Berkowitz reformulated theory to include...", options: ["Genetic factors", "Environmental aggressive CUES", "Hormonal changes"], correct: 1 }
+]
+
 export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [currentLesson, setCurrentLesson] = useState(1)
   const [isSidebarOpen, setSidebarOpen] = useState(true)
   const [isPresentation, setIsPresentation] = useState(false)
-  const slideCount = currentLesson === 1 ? 10 : currentLesson === 2 ? 9 : currentLesson === 3 ? 9 : currentLesson === 4 ? 9 : currentLesson === 5 ? 9 : currentLesson === 6 ? 9 : currentLesson === 7 ? 8 : currentLesson === 8 ? 8 : 0
+  const slideCount = currentLesson === 1 ? 10 : currentLesson === 2 ? 9 : currentLesson === 3 ? 9 : currentLesson === 4 ? 9 : currentLesson === 5 ? 9 : currentLesson === 6 ? 9 : currentLesson === 7 ? 8 : currentLesson === 8 ? 8 : currentLesson === 9 ? 9 : 0
 
   const nextSlide = useCallback(() => {
     if (currentSlide < slideCount - 1) setCurrentSlide(prev => prev + 1)
@@ -419,12 +434,20 @@ export default function App() {
       case 4:
         return (
           <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 2: Check" title="Understanding Check" icon={CheckCircle} time="10 MINS" isPresentation={isPresentation} />
+            <Lesson8UnderstandingCheck isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 5:
+        return (
+          <Slide isPresentation={isPresentation}>
             <PhaseHeader phase="Phase 3: Simulation" title="Three Prisons" icon={Building} time="15 MINS" isPresentation={isPresentation} />
             <ThreePrisonsSim isPresentation={isPresentation} />
           </Slide>
         )
 
-      case 5:
+      case 6:
         return (
           <Slide isPresentation={isPresentation}>
             <PhaseHeader phase="Phase 4: Evidence" title="Research Data" icon={Search} time="10 MINS" isPresentation={isPresentation} />
@@ -432,7 +455,7 @@ export default function App() {
           </Slide>
         )
 
-      case 6:
+      case 7:
         return (
           <Slide isPresentation={isPresentation}>
             <PhaseHeader phase="Phase 5: Evaluation" title="Critical Analysis" icon={AlertTriangle} time="10 MINS" isPresentation={isPresentation} />
@@ -440,7 +463,7 @@ export default function App() {
           </Slide>
         )
 
-      case 7:
+      case 8:
         return (
           <Slide isPresentation={isPresentation}>
             <PhaseHeader phase="Phase 6: Assessment" title="Case File Analysis" icon={CheckCircle} time="15 MINS" isPresentation={isPresentation} />
@@ -455,6 +478,186 @@ export default function App() {
                 </p>
               </div>
               <Lesson8EssayPlan isPresentation={isPresentation} />
+            </div>
+          </Slide>
+        )
+
+      default:
+        return null
+    }
+  }
+
+  const renderLesson9 = () => {
+    switch (currentSlide) {
+      case 0:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <div className="flex flex-col items-center justify-center h-full text-center">
+              <div className="relative mb-8">
+                <div className="absolute inset-0 bg-blue-500 blur-[100px] opacity-20 rounded-full animate-pulse"></div>
+                <div className="relative z-10 flex gap-4">
+                  <Tv size={isPresentation ? 100 : 80} className="text-blue-400" />
+                  <Gamepad2 size={isPresentation ? 100 : 80} className="text-blue-400" />
+                </div>
+              </div>
+              <h1 className={`font-bold text-white mb-4 tracking-widest uppercase ${isPresentation ? 'text-8xl' : 'text-6xl'}`}>
+                MEDIA <span className="text-blue-500">INFLUENCES</span>
+              </h1>
+              <h2 className={`font-bold text-white mb-4 tracking-widest uppercase ${isPresentation ? 'text-8xl' : 'text-6xl'}`}>
+                ON AGGRESSION
+              </h2>
+              <div className="h-1 w-64 bg-blue-900 my-6"></div>
+              <h2 className={`text-blue-600 text-xs tracking-[0.5em] uppercase mb-12 font-bold`}>Aggression Lesson 09</h2>
+              <button onClick={nextSlide} className={`bg-slate-900 border border-blue-500 text-blue-400 font-bold px-12 py-4 rounded-xl hover:bg-slate-800 transition-all ${isPresentation ? 'text-2xl' : 'text-lg'} uppercase shadow-lg`}>
+                Begin Analysis
+              </button>
+            </div>
+          </Slide>
+        )
+
+      case 1:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 1: Activation" title="Security Briefing" icon={Activity} time="05 MINS" isPresentation={isPresentation} />
+            <DoNowQuiz questions={lesson9DoNow} isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 2:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 2: Concept" title="Media Effects on Aggression" icon={Tv} time="10 MINS" isPresentation={isPresentation} />
+            <MediaEffectVisualizer isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 3:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 2: Concept" title="Research Methodologies" icon={Microscope} time="10 MINS" isPresentation={isPresentation} />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full p-6">
+              <div className="bg-blue-950/50 border-2 border-yellow-600 rounded-xl p-6 hover:border-yellow-500 transition-all">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-yellow-600 rounded-lg flex items-center justify-center">
+                    <TrendingUp size={24} className="text-black" />
+                  </div>
+                  <h3 className="text-yellow-400 font-bold text-xl uppercase">Correlational</h3>
+                </div>
+                <p className={`text-yellow-100 mb-4 ${isPresentation ? 'text-base' : 'text-sm'} leading-relaxed`}>
+                  Survey large samples on media consumption and aggression. Calculate correlation coefficient.
+                </p>
+                <div className="bg-yellow-900/20 p-3 rounded border border-yellow-700 mb-3">
+                  <p className="text-yellow-200 text-xs">
+                    <strong className="block mb-1">✓ Strength:</strong>
+                    Real-world data, ecological validity
+                  </p>
+                </div>
+                <div className="bg-red-900/20 p-3 rounded border border-red-700">
+                  <p className="text-red-200 text-xs">
+                    <strong className="block mb-1">✗ Limitation:</strong>
+                    Cannot prove causation. Reverse causality issue.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-blue-950/50 border-2 border-blue-600 rounded-xl p-6 hover:border-blue-500 transition-all">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
+                    <FlaskConical size={24} className="text-white" />
+                  </div>
+                  <h3 className="text-blue-400 font-bold text-xl uppercase">Experimental</h3>
+                </div>
+                <p className={`text-blue-100 mb-4 ${isPresentation ? 'text-base' : 'text-sm'} leading-relaxed`}>
+                  Randomly assign participants to violent vs. non-violent media. Measure aggression via tasks.
+                </p>
+                <div className="bg-green-900/20 p-3 rounded border border-green-700 mb-3">
+                  <p className="text-green-200 text-xs">
+                    <strong className="block mb-1">✓ Strength:</strong>
+                    Can establish causation through control
+                  </p>
+                </div>
+                <div className="bg-red-900/20 p-3 rounded border border-red-700">
+                  <p className="text-red-200 text-xs">
+                    <strong className="block mb-1">✗ Limitation:</strong>
+                    Low ecological validity. Lab aggression ≠ real violence.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-blue-950/50 border-2 border-purple-600 rounded-xl p-6 hover:border-purple-500 transition-all">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center">
+                    <Clock size={24} className="text-white" />
+                  </div>
+                  <h3 className="text-purple-400 font-bold text-xl uppercase">Longitudinal</h3>
+                </div>
+                <p className={`text-purple-100 mb-4 ${isPresentation ? 'text-base' : 'text-sm'} leading-relaxed`}>
+                  Track same participants over years. Observe media habits and behavior changes over time.
+                </p>
+                <div className="bg-green-900/20 p-3 rounded border border-green-700 mb-3">
+                  <p className="text-green-200 text-xs">
+                    <strong className="block mb-1">✓ Strength:</strong>
+                    Long-term patterns, developmental insights
+                  </p>
+                </div>
+                <div className="bg-red-900/20 p-3 rounded border border-red-700">
+                  <p className="text-red-200 text-xs">
+                    <strong className="block mb-1">✗ Limitation:</strong>
+                    Cannot control confounding variables. Sample attrition.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Slide>
+        )
+
+      case 4:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 2: Check" title="Understanding Check" icon={CheckCircle} time="10 MINS" isPresentation={isPresentation} />
+            <Lesson9UnderstandingCheck isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 5:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 3: Simulation" title="Research Design Lab" icon={Microscope} time="15 MINS" isPresentation={isPresentation} />
+            <MediaLabSim isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 6:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 4: Evidence" title="Research Data" icon={Search} time="10 MINS" isPresentation={isPresentation} />
+            <Lesson9EvidenceGrid isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 7:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 5: Evaluation" title="Critical Analysis" icon={AlertTriangle} time="10 MINS" isPresentation={isPresentation} />
+            <Lesson9CritiqueGrid isPresentation={isPresentation} />
+          </Slide>
+        )
+
+      case 8:
+        return (
+          <Slide isPresentation={isPresentation}>
+            <PhaseHeader phase="Phase 6: Assessment" title="Essay Analysis" icon={CheckCircle} time="15 MINS" isPresentation={isPresentation} />
+            <div className={`grid grid-cols-1 md:grid-cols-2 h-full ${isPresentation ? 'gap-16' : 'gap-8'}`}>
+              <div className="bg-slate-900 border-2 border-blue-700 shadow-2xl flex flex-col relative overflow-hidden p-8 justify-center">
+                <div className="flex items-center gap-3 mb-6 border-b-2 border-blue-700 pb-4">
+                  <span className="bg-blue-600 text-white px-3 py-1 text-sm font-bold">16 MARKS</span>
+                  <h3 className="font-bold text-white text-xl">ASSESSMENT</h3>
+                </div>
+                <p className={`text-blue-400 italic leading-snug border-l-4 border-blue-700 pl-6 ${isPresentation ? 'text-4xl' : 'text-2xl'}`}>
+                  "Discuss the effects of media on aggressive behaviour."
+                </p>
+              </div>
+              <Lesson9EssayPlan isPresentation={isPresentation} />
             </div>
           </Slide>
         )
@@ -1240,6 +1443,7 @@ export default function App() {
           {currentLesson === 6 && renderLesson6()}
           {currentLesson === 7 && renderLesson7()}
           {currentLesson === 8 && renderLesson8()}
+          {currentLesson === 9 && renderLesson9()}
         </main>
 
         {/* BOTTOM NAV */}
